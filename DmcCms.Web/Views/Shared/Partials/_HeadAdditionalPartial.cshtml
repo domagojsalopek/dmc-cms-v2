@@ -1,0 +1,69 @@
+﻿@{
+    var config = Html.GetAppConfig();
+}
+<script type="text/javascript">
+    (function (root) {
+        root.dmc = root.dmc || {};
+        root.dmc.External = root.dmc.External || {};
+        root.dmc.LoggedIn = @(User.Identity.IsAuthenticated.ToString().ToLower());
+        root.dmc.External.FacebookId = '@Html.GetFbId()';
+        root.dmc.External.AmazonId = '@Html.GetAmazonId()';
+        root.dmc.URL = root.dmc.URL || {};
+        root.dmc.URL.EnableCookies = '@Url.Action("enable", "cookie")';
+        root.dmc.URL.CookiePolicy = '@(Url.AbsoluteAction("details", "page", new { slug = "cookie-policy" }))';
+        root.dmc.URL.ExternalLogin = '@Url.Action("externallogin", "account")';
+        root.dmc.URL.ReturnUrl = '@(ViewBag.ReturnUrl ?? Request.QueryString["ReturnUrl"])';
+        root.dmc.URL.AssociateExternalLogin = '@Url.Action("associateexternallogin", "account")';
+        root.dmc.URL.PermissionsMissing = '@Url.Action("permissionsmissing", "account", new { provider = Request.QueryString["provider"] ?? ExternalLoginKeys.Facebook, ReturnUrl = ViewBag.ReturnUrl ?? Request.QueryString["ReturnUrl"] })';
+    })(window);
+</script>
+@if (config.SiteSettings.IsCustomCookieSolutionEnabled)
+{
+    @Html.Raw(config.SiteSettings.CustomCookieSolutionCode)
+}
+@if (!string.IsNullOrWhiteSpace(config.SiteSettings.AdditionalCustomHeadContent))
+{
+    @Html.Raw(config.SiteSettings.AdditionalCustomHeadContent)
+}
+@*<script type="text/javascript" src="//cdn.iubenda.com/cs/tcf/stub.js"></script>
+    <script type="text/javascript">
+        var _iub = _iub || [];
+        _iub.csConfiguration = {
+            "enableCMP": true,
+            "isTCFConsentGlobal": false,
+            "lang": "en",
+            "siteId": 1635330,
+            "consentOnButton": false,
+            "consentOnElement": "   ",
+            "consentOnScroll": false,
+            "cookiePolicyId": 10917310,
+            "consentOnContinuedBrowsing": false,
+            "banner": {
+                "acceptButtonDisplay": true,
+                "customizeButtonDisplay": true,
+                "position": "bottom",
+                "backgroundOverlay": false
+            },
+            callback: {
+                onConsentRead: function () {
+                    if (document.readyState !== 'loading') {
+                        window.dmc.util.EnableCookies(window.dmc.URL.EnableCookies);
+                    } else {
+                        document.addEventListener('DOMContentLoaded', function (event) {
+                            window.dmc.util.EnableCookies(window.dmc.URL.EnableCookies);
+                        });
+                    }
+                }
+            }
+        };
+    </script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>*@
+
+@*<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=ngJ9J9232d">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=ngJ9J9232d">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=ngJ9J9232d">
+<link rel="manifest" href="/site.webmanifest?v=ngJ9J9232d">
+<link rel="mask-icon" href="/safari-pinned-tab.svg?v=ngJ9J9232d" color="#5599ff">
+<link rel="shortcut icon" href="/favicon.ico?v=ngJ9J9232d">
+<meta name="msapplication-TileColor" content="#5599ff">
+<meta name="theme-color" content="#ffffff">*@

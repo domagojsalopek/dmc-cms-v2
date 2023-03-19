@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Thank you for registering";
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+
+        <div class="acctitle"><i class="acc-open icon-user"></i>@ViewBag.Title</div>
+        <div class="acc_content clearfix">
+
+            <div class="alert style-msg successmsg">
+                <div class="sb-msg"><i class="icon-thumbs-up"></i><strong>Well done!</strong> You registered successfully.</div>
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            </div>
+
+            <p>Before you can login, we'll need you to <strong>Confirm your E-mail</strong>.</p>
+            <p>We have sent an e-mail with an activation link to the E-mail address you specified, please follow it to activate your account.</p>
+            <p>Thank you for joining, hope you'll enjoy it here.</p>
+
+        </div>
+
+    </div>
+</div>
+
+@section PageTitle
+{
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>My account</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Register</li>
+            </ol>
+        </div>
+    </section>
+}

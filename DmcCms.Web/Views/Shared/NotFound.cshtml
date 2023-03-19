@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+    var appConfig = Html.GetAppConfig();
+}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+    @Styles.Render("~/resources/style")
+    @Styles.Render("~/resources/css/style")
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lt IE 9]>
+        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <title>404 - Not Found | @appConfig.SiteSettings.Name</title>
+    @{ Html.RenderPartial("Partials/_HeadAdditionalPartial"); }
+</head>
+<body class="stretched">
+    <div id="wrapper" class="clearfix">
+        
+        @{Html.RenderPartial("Partials/_HeaderPartial");}
+        
+        <section id="page-title">
+            <div class="container clearfix">
+                <h1>Page Not Found</h1>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li class="active">404</li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="content">
+            <div class="content-wrap">
+                
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    Html.RenderPartial("Partials/_LoginModalPartial", new UserLoginViewModel());
+                }
+
+                <div class="container clearfix">
+                    
+                    <div class="col_half nobottommargin">
+                        <div class="error404 center">404</div>
+                    </div>
+
+                    <div class="col_half nobottommargin col_last">
+
+                        <div class="heading-block nobottomborder">
+                            <h4>Ooopps.! The Page you were looking for, couldn't be found.</h4>
+                            <span>Try searching for the best match or browse the links below:</span>
+                        </div>
+
+                        <form action="@Url.Action("index", "search")" method="get" role="form" class="search_form nobottommargin" data-notify-msg="Query must be at least 3 characters long.">
+                            <div class="input-group input-group-lg">
+                                <input type="text" name="q" class="form-control" placeholder="Search for posts ...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-danger" type="button">Search</button>
+                                </span>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        @{Html.RenderPartial("Partials/_FooterPartial");}
+    </div>
+    <div id="gotoTop" class="icon-angle-up"></div>
+    <form class="hidden" id="__AjaxAntiForgeryForm" action="#" method="post">@Html.AntiForgeryToken()</form>
+    @Scripts.Render("~/scripts/jquery")
+    <script>window.jQuery || document.write('<script src="@Url.Content("~/resources/js/jquery.js")"><\/script>')</script>
+    @Scripts.Render("~/scripts/js")
+</body>
+</html>

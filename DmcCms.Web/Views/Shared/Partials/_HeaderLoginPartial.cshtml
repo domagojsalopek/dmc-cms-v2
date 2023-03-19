@@ -1,0 +1,20 @@
+﻿@model UserLoginViewModel
+@using (Html.BeginForm("Login, Account"))
+{
+    <div class="input-group" id="top-login-username">
+        @Html.LabelFor(o => o.Email)
+        @Html.TextBoxFor(o => o.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(o => o.Email, "", new { @class = "help-block text-danger formError" })
+    </div>
+
+    <div class="input-group" id="top-login-password">
+        @Html.LabelFor(o => o.Password)
+        @Html.PasswordFor(o => o.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(o => o.Password, "", new { @class = "help-block text-danger formError" })
+    </div>
+
+    <label class="checkbox">
+        <input type="checkbox" name="@Html.IdFor(o => o.RememberMe)" value="@Html.IdFor(o => o.RememberMe)"> Remember me
+    </label>
+    <button class="btn btn-danger btn-block" type="submit">Sign in</button>
+}

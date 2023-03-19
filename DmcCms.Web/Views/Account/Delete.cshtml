@@ -1,0 +1,104 @@
+﻿@model Dmc.Cms.Web.ViewModels.AccountDeleteViewModel
+
+@{
+    ViewBag.Title = "Delete Account";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<img src="~/resources/images/icons/avatar.jpg" class="alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="" style="max-width: 84px;">
+
+<div class="heading-block noborder">
+    <h3>@Model.DisplayName</h3>
+    <span>Member since @Model.MemberSince.DateTime.ToLongDateString()</span>
+</div>
+
+<div class="row clearfix">
+    <div class="col-md-12">
+        <div class="tabs tabs-alt clearfix" id="tabs-profile">
+
+            <div class="tab-container">
+                <div class="tab-content clearfix" id="tab-posts">
+
+                    <div class="col_full">
+                        @Html.Partial("Partials/_MessagesPartial")
+                        <p>
+                            You are about to delete your account. This action <strong>CANNOT</strong> be undone.
+                            We cannot restore any accounts.
+                        </p>
+                        <p>
+                            You will have to create a <strong>completely new account</strong> and verify your E-mail again.
+                        </p>
+                        <p>
+                            NOTE: Your comments on the site will be anonymised - info related to your account will be removed and they will appear anonymous.
+                            The <strong>text of the comments will remain so that other users have a better overview of the discussion</strong>.
+                            If you wish to delete also the contents of every comment, you must delete those comments manually.
+                            If you left any personal data in the text of a comment, you <strong>must</strong> delete those comments manually 
+                            before proceeding to delete your account.
+                        </p>
+                        <button class="button button-3d button-black nomargin" id="delete-form-submit" name="delete-form-submit" value="delete">Delete</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal1 mfp-hide" id="modal-delete">
+    <div class="block divcenter" style="background-color: #FFF; max-width: 400px;">
+        <div style="padding: 50px;">
+
+            <h3 class="font-body">Delete your Account</h3>
+            <p>
+                You are about to delete your account. This action <strong>CANNOT</strong> be undone.
+                We cannot restore any accounts.
+            </p>
+            <p>
+                NOTE: Your comments on the site will be anonymised - info related to your account will be removed and they will appear anonymous.
+                The <strong>text of the comments will remain so that other users have a better overview of the discussion</strong>.
+                If you wish to delete also the contents of every comment, you must delete those comments manually.
+                If you left any personal data in the text of a comment, you <strong>must</strong> delete those comments manually
+                before proceeding to delete your account.
+            </p>
+            <p>
+                Please Confirm that you wish to delete your account.
+                There will be no further warning.
+            </p>
+
+            @using (Html.BeginForm("Delete", "Account", FormMethod.Post, new { @id = "delete-form", @class = "nobottommargin" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Partial("Partials/_HoneyPotPartial")
+
+                @Html.HiddenFor(o => o.Email)
+                @Html.HiddenFor(o => o.FirstName)
+                @Html.HiddenFor(o => o.LastName)
+                @Html.HiddenFor(o => o.MemberSince)
+                @Html.HiddenFor(o => o.Token)
+
+                <div class="col_full">
+                    <button class="button button-3d button-black nomargin" name="perform-delete" value="delete">DELETE</button>
+                    <button class="button button-3d button-blue nomargin" id="CancelAccountDelete">Cancel</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+@section PageTitle
+{
+    <section id="page-title">
+
+        <div class="container clearfix">
+            <h1>Account</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Account")">Account</a></li>
+                <li class="breadcrumb-item active">Delete Account</li>
+            </ol>
+        </div>
+
+    </section>
+}

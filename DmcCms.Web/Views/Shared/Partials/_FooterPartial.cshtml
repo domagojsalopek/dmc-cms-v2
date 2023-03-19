@@ -1,0 +1,48 @@
+﻿@{ 
+    var appConfig = Html.GetAppConfig();
+}
+<footer id="footer" class="dark">
+    <div id="copyrights">
+        <div class="container clearfix">
+            <div class="col_half">
+                <img src="@(Url.Content(appConfig.SiteResources.FooterLogo ?? "~/resources/custom/site-logo-footer.png"))" alt="@appConfig.SiteSettings.Name" class="footer-logo">
+                Copyright &copy; @DateTime.Now.Year All Rights Reserved by @appConfig.SiteSettings.Name
+            </div>            
+            <div class="col_half col_last">
+                <div class="copyrights-menu copyright-links fright clearfix">
+                    @if (!string.IsNullOrWhiteSpace(appConfig.SiteSettings.CustomCookieAndPrivacyPolicyLinks))
+                    {
+                        @Html.Raw(appConfig.SiteSettings.CustomCookieAndPrivacyPolicyLinks);
+                    }
+                    @*<a href="https://www.iubenda.com/privacy-policy/10917310" class="iubenda-black no-brand iubenda-embed" title="Privacy Policy">Privacy Policy</a>
+                    <a href="https://www.iubenda.com/privacy-policy/10917310/cookie-policy" class="iubenda-black no-brand iubenda-embed" title="Cookie Policy">Cookie Policy</a>
+                    <script type="text/javascript">(function (w, d) { var loader = function () { var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src = "https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s, tag); }; if (w.addEventListener) { w.addEventListener("load", loader, false); } else if (w.attachEvent) { w.attachEvent("onload", loader); } else { w.onload = loader; } })(window, document);</script>*@
+                </div>
+                <div class="clearfix"></div>
+                <div class="fright clearfix">
+                    @if (!string.IsNullOrWhiteSpace(appConfig.SocialLinks.Facebook))
+                    {
+                        <a target="_blank" href="https://www.facebook.com/@(appConfig.SocialLinks.Facebook)" class="social-icon si-small si-borderless nobottommargin si-facebook">
+                            <i class="icon-facebook"></i>
+                            <i class="icon-facebook"></i>
+                        </a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(appConfig.SocialLinks.Twitter))
+                    {
+                        <a target="_blank" href="https://twitter.com/@(appConfig.SocialLinks.Twitter)" class="social-icon si-small si-borderless nobottommargin si-twitter">
+                            <i class="icon-twitter"></i>
+                            <i class="icon-twitter"></i>
+                        </a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(appConfig.SocialLinks.Instagram))
+                    {
+                        <a target="_blank" href="https://www.instagram.com/@(appConfig.SocialLinks.Instagram)" class="social-icon si-small si-borderless nobottommargin si-instagram">
+                            <i class="icon-instagram"></i>
+                            <i class="icon-instagram"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

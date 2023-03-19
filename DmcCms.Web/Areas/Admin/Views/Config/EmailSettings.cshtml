@@ -1,0 +1,44 @@
+﻿@model Dmc.Cms.App.EmailSettings
+@{
+    ViewBag.Title = "Email Settings";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.SendFromEmail)
+        @Html.TextBoxFor(o => o.SendFromEmail, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.SendFromName)
+        @Html.TextBoxFor(o => o.SendFromName, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.SmtpHost)
+        @Html.TextBoxFor(o => o.SmtpHost, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Username)
+        @Html.TextBoxFor(o => o.Username, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Password)
+        @Html.PasswordFor(o => o.Password, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.SmtpPort)
+        @Html.TextBoxFor(o => o.SmtpPort, new { @class = "form-control" })
+    </div>
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

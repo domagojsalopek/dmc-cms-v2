@@ -1,0 +1,203 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Cms.Web", "DmcCms.Web\Dmc.Cms.Web.csproj", "{F9687E0B-441F-475D-8559-69749F263027}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CmsFramework", "CmsFramework", "{6CB3B21C-6065-417F-BDA5-5A2D0F9689E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DmcCms", "DmcCms", "{FB9946BF-CAE4-4A4F-9E70-FC68A808774E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{EB070048-87C2-4885-A015-98E5504D6AF1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Crypto", "Crypto", "{310AD06A-AE0D-4DF6-9B6E-EE61DB82D604}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{807A4CBA-AEB1-4F01-A5FE-4DB7C1435D28}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{22FB896E-5934-4FCE-9845-F5CD84023B8F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Repository", "CmsFramework\Dmc.Repository\Dmc.Repository.csproj", "{E27C2FF0-B3B5-444F-BCE2-346AFC137323}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Core", "CmsFramework\Dmc.Core\Dmc.Core.csproj", "{528EE90E-91EE-48CE-AEE0-93F414C9DA63}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Crypto", "CmsFramework\Dmc.Crypto\Dmc.Crypto.csproj", "{5CA911C2-AC4E-49A0-9DE6-5E9BBA0517FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Repository.Ef", "CmsFramework\Dmc.Repository.Ef\Dmc.Repository.Ef.csproj", "{3D5B5879-479D-4037-BA5E-59ABCA3AE8EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Identity", "CmsFramework\Dmc.Identity\Dmc.Identity.csproj", "{B24C49FB-03E2-4535-95FB-89A73201B76E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Identity.Ef", "CmsFramework\Dmc.Identity.Ef\Dmc.Identity.Ef.csproj", "{F9616F0C-DA3F-4C8F-ADE5-0AEC7EF0185F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{DF2C63DB-A6FC-491C-A5CE-AB4C4F205FDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Utilities", "CmsFramework\Dmc.Utilities\Dmc.Utilities.csproj", "{103F3F86-B4C6-4E9B-815B-B4098712ED6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Cms.App", "DmcCms\Dmc.Cms.App\Dmc.Cms.App.csproj", "{9FFBFC70-A6F0-43A1-B561-65914B060CFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Cms.Core", "DmcCms\Dmc.Cms.Core\Dmc.Cms.Core.csproj", "{B204707F-7802-4241-B768-FDB4FC8717A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Cms.Model", "DmcCms\Dmc.Cms.Model\Dmc.Cms.Model.csproj", "{61BB51C1-23A9-4B29-994B-37021295B663}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Cms.Repository", "DmcCms\Dmc.Cms.Repository\Dmc.Cms.Repository.csproj", "{4373A932-38B8-42EC-9CBC-8822998C8100}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Cms.Repository.Ef", "DmcCms\Dmc.Cms.Repository.Ef\Dmc.Cms.Repository.Ef.csproj", "{07231C35-0EC7-408C-B7D0-18298E9090A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dmc.Cms.App.Services", "DmcCms\Dmc.Cms.App.Services\Dmc.Cms.App.Services.csproj", "{AFA3A22E-9B31-4F76-BFE5-83FF893E4398}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FDCEF85B-FFFC-44CA-9AE0-540A7B2477DB}"
+	ProjectSection(SolutionItems) = preProject
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F9687E0B-441F-475D-8559-69749F263027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9687E0B-441F-475D-8559-69749F263027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9687E0B-441F-475D-8559-69749F263027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9687E0B-441F-475D-8559-69749F263027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E27C2FF0-B3B5-444F-BCE2-346AFC137323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E27C2FF0-B3B5-444F-BCE2-346AFC137323}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E27C2FF0-B3B5-444F-BCE2-346AFC137323}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E27C2FF0-B3B5-444F-BCE2-346AFC137323}.Release|Any CPU.Build.0 = Release|Any CPU
+		{528EE90E-91EE-48CE-AEE0-93F414C9DA63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{528EE90E-91EE-48CE-AEE0-93F414C9DA63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{528EE90E-91EE-48CE-AEE0-93F414C9DA63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{528EE90E-91EE-48CE-AEE0-93F414C9DA63}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CA911C2-AC4E-49A0-9DE6-5E9BBA0517FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CA911C2-AC4E-49A0-9DE6-5E9BBA0517FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CA911C2-AC4E-49A0-9DE6-5E9BBA0517FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CA911C2-AC4E-49A0-9DE6-5E9BBA0517FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D5B5879-479D-4037-BA5E-59ABCA3AE8EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D5B5879-479D-4037-BA5E-59ABCA3AE8EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D5B5879-479D-4037-BA5E-59ABCA3AE8EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D5B5879-479D-4037-BA5E-59ABCA3AE8EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B24C49FB-03E2-4535-95FB-89A73201B76E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B24C49FB-03E2-4535-95FB-89A73201B76E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B24C49FB-03E2-4535-95FB-89A73201B76E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B24C49FB-03E2-4535-95FB-89A73201B76E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9616F0C-DA3F-4C8F-ADE5-0AEC7EF0185F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9616F0C-DA3F-4C8F-ADE5-0AEC7EF0185F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9616F0C-DA3F-4C8F-ADE5-0AEC7EF0185F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9616F0C-DA3F-4C8F-ADE5-0AEC7EF0185F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{103F3F86-B4C6-4E9B-815B-B4098712ED6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{103F3F86-B4C6-4E9B-815B-B4098712ED6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{103F3F86-B4C6-4E9B-815B-B4098712ED6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{103F3F86-B4C6-4E9B-815B-B4098712ED6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FFBFC70-A6F0-43A1-B561-65914B060CFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FFBFC70-A6F0-43A1-B561-65914B060CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FFBFC70-A6F0-43A1-B561-65914B060CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FFBFC70-A6F0-43A1-B561-65914B060CFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B204707F-7802-4241-B768-FDB4FC8717A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B204707F-7802-4241-B768-FDB4FC8717A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B204707F-7802-4241-B768-FDB4FC8717A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B204707F-7802-4241-B768-FDB4FC8717A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61BB51C1-23A9-4B29-994B-37021295B663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61BB51C1-23A9-4B29-994B-37021295B663}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61BB51C1-23A9-4B29-994B-37021295B663}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61BB51C1-23A9-4B29-994B-37021295B663}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4373A932-38B8-42EC-9CBC-8822998C8100}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4373A932-38B8-42EC-9CBC-8822998C8100}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4373A932-38B8-42EC-9CBC-8822998C8100}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4373A932-38B8-42EC-9CBC-8822998C8100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07231C35-0EC7-408C-B7D0-18298E9090A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07231C35-0EC7-408C-B7D0-18298E9090A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07231C35-0EC7-408C-B7D0-18298E9090A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07231C35-0EC7-408C-B7D0-18298E9090A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA3A22E-9B31-4F76-BFE5-83FF893E4398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA3A22E-9B31-4F76-BFE5-83FF893E4398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA3A22E-9B31-4F76-BFE5-83FF893E4398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA3A22E-9B31-4F76-BFE5-83FF893E4398}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EB070048-87C2-4885-A015-98E5504D6AF1} = {6CB3B21C-6065-417F-BDA5-5A2D0F9689E5}
+		{310AD06A-AE0D-4DF6-9B6E-EE61DB82D604} = {6CB3B21C-6065-417F-BDA5-5A2D0F9689E5}
+		{807A4CBA-AEB1-4F01-A5FE-4DB7C1435D28} = {6CB3B21C-6065-417F-BDA5-5A2D0F9689E5}
+		{22FB896E-5934-4FCE-9845-F5CD84023B8F} = {6CB3B21C-6065-417F-BDA5-5A2D0F9689E5}
+		{E27C2FF0-B3B5-444F-BCE2-346AFC137323} = {22FB896E-5934-4FCE-9845-F5CD84023B8F}
+		{528EE90E-91EE-48CE-AEE0-93F414C9DA63} = {EB070048-87C2-4885-A015-98E5504D6AF1}
+		{5CA911C2-AC4E-49A0-9DE6-5E9BBA0517FE} = {310AD06A-AE0D-4DF6-9B6E-EE61DB82D604}
+		{3D5B5879-479D-4037-BA5E-59ABCA3AE8EF} = {22FB896E-5934-4FCE-9845-F5CD84023B8F}
+		{B24C49FB-03E2-4535-95FB-89A73201B76E} = {807A4CBA-AEB1-4F01-A5FE-4DB7C1435D28}
+		{F9616F0C-DA3F-4C8F-ADE5-0AEC7EF0185F} = {807A4CBA-AEB1-4F01-A5FE-4DB7C1435D28}
+		{DF2C63DB-A6FC-491C-A5CE-AB4C4F205FDE} = {6CB3B21C-6065-417F-BDA5-5A2D0F9689E5}
+		{103F3F86-B4C6-4E9B-815B-B4098712ED6A} = {DF2C63DB-A6FC-491C-A5CE-AB4C4F205FDE}
+		{9FFBFC70-A6F0-43A1-B561-65914B060CFD} = {FB9946BF-CAE4-4A4F-9E70-FC68A808774E}
+		{B204707F-7802-4241-B768-FDB4FC8717A6} = {FB9946BF-CAE4-4A4F-9E70-FC68A808774E}
+		{61BB51C1-23A9-4B29-994B-37021295B663} = {FB9946BF-CAE4-4A4F-9E70-FC68A808774E}
+		{4373A932-38B8-42EC-9CBC-8822998C8100} = {FB9946BF-CAE4-4A4F-9E70-FC68A808774E}
+		{07231C35-0EC7-408C-B7D0-18298E9090A2} = {FB9946BF-CAE4-4A4F-9E70-FC68A808774E}
+		{AFA3A22E-9B31-4F76-BFE5-83FF893E4398} = {FB9946BF-CAE4-4A4F-9E70-FC68A808774E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21C67A8B-F224-4F7B-8B8F-220D32478FC1}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 15
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://domagojsalopek.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = CmsFramework\\Dmc.Core\\Dmc.Core.csproj
+		SccProjectTopLevelParentUniqueName1 = DmcCms.sln
+		SccProjectName1 = CmsFramework/Dmc.Core
+		SccLocalPath1 = CmsFramework\\Dmc.Core
+		SccProjectUniqueName2 = CmsFramework\\Dmc.Crypto\\Dmc.Crypto.csproj
+		SccProjectTopLevelParentUniqueName2 = DmcCms.sln
+		SccProjectName2 = CmsFramework/Dmc.Crypto
+		SccLocalPath2 = CmsFramework\\Dmc.Crypto
+		SccProjectUniqueName3 = CmsFramework\\Dmc.Identity.Ef\\Dmc.Identity.Ef.csproj
+		SccProjectTopLevelParentUniqueName3 = DmcCms.sln
+		SccProjectName3 = CmsFramework/Dmc.Identity.Ef
+		SccLocalPath3 = CmsFramework\\Dmc.Identity.Ef
+		SccProjectUniqueName4 = CmsFramework\\Dmc.Identity\\Dmc.Identity.csproj
+		SccProjectTopLevelParentUniqueName4 = DmcCms.sln
+		SccProjectName4 = CmsFramework/Dmc.Identity
+		SccLocalPath4 = CmsFramework\\Dmc.Identity
+		SccProjectUniqueName5 = CmsFramework\\Dmc.Repository.Ef\\Dmc.Repository.Ef.csproj
+		SccProjectTopLevelParentUniqueName5 = DmcCms.sln
+		SccProjectName5 = CmsFramework/Dmc.Repository.Ef
+		SccLocalPath5 = CmsFramework\\Dmc.Repository.Ef
+		SccProjectUniqueName6 = CmsFramework\\Dmc.Repository\\Dmc.Repository.csproj
+		SccProjectTopLevelParentUniqueName6 = DmcCms.sln
+		SccProjectName6 = CmsFramework/Dmc.Repository
+		SccLocalPath6 = CmsFramework\\Dmc.Repository
+		SccProjectUniqueName7 = CmsFramework\\Dmc.Utilities\\Dmc.Utilities.csproj
+		SccProjectTopLevelParentUniqueName7 = DmcCms.sln
+		SccProjectName7 = CmsFramework/Dmc.Utilities
+		SccLocalPath7 = CmsFramework\\Dmc.Utilities
+		SccProjectUniqueName8 = DmcCms.Web\\Dmc.Cms.Web.csproj
+		SccProjectName8 = DmcCms.Web
+		SccLocalPath8 = DmcCms.Web
+		SccProjectUniqueName9 = DmcCms\\Dmc.Cms.App\\Dmc.Cms.App.csproj
+		SccProjectTopLevelParentUniqueName9 = DmcCms.sln
+		SccProjectName9 = DmcCms/Dmc.Cms.App
+		SccLocalPath9 = DmcCms\\Dmc.Cms.App
+		SccProjectUniqueName10 = DmcCms\\Dmc.Cms.Core\\Dmc.Cms.Core.csproj
+		SccProjectTopLevelParentUniqueName10 = DmcCms.sln
+		SccProjectName10 = DmcCms/Dmc.Cms.Core
+		SccLocalPath10 = DmcCms\\Dmc.Cms.Core
+		SccProjectUniqueName11 = DmcCms\\Dmc.Cms.Model\\Dmc.Cms.Model.csproj
+		SccProjectTopLevelParentUniqueName11 = DmcCms.sln
+		SccProjectName11 = DmcCms/Dmc.Cms.Model
+		SccLocalPath11 = DmcCms\\Dmc.Cms.Model
+		SccProjectUniqueName12 = DmcCms\\Dmc.Cms.Repository.Ef\\Dmc.Cms.Repository.Ef.csproj
+		SccProjectTopLevelParentUniqueName12 = DmcCms.sln
+		SccProjectName12 = DmcCms/Dmc.Cms.Repository.Ef
+		SccLocalPath12 = DmcCms\\Dmc.Cms.Repository.Ef
+		SccProjectUniqueName13 = DmcCms\\Dmc.Cms.Repository\\Dmc.Cms.Repository.csproj
+		SccProjectTopLevelParentUniqueName13 = DmcCms.sln
+		SccProjectName13 = DmcCms/Dmc.Cms.Repository
+		SccLocalPath13 = DmcCms\\Dmc.Cms.Repository
+		SccProjectUniqueName14 = DmcCms\\Dmc.Cms.App.Services\\Dmc.Cms.App.Services.csproj
+		SccProjectTopLevelParentUniqueName14 = DmcCms.sln
+		SccProjectName14 = DmcCms/Dmc.Cms.App.Services
+		SccLocalPath14 = DmcCms\\Dmc.Cms.App.Services
+	EndGlobalSection
+EndGlobal

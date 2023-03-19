@@ -1,0 +1,13 @@
+﻿@model List<CategoryWithSubcategoriesListViewModel>
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a href="@Url.Action("PostsByCategory", "default", new { categoryName = item.Slug })"><div>@item.Name</div></a> (@item.NumberOfPosts)
+            @if (item.HasSubcategories)
+            {
+                Html.RenderPartial("Partials/_SubcategoriesPartial", item.Subcategories);
+            }
+        </li>
+    }
+</ul>

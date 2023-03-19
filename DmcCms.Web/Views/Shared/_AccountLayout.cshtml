@@ -1,0 +1,62 @@
+﻿@{
+    bool isCookieConsentGiven = Html.IsCookieConsentGiven();
+    var appConfig = Html.GetAppConfig();
+}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb" class="@(isCookieConsentGiven ? "cookieConsentGiven" : string.Empty)">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="twitter:dnt" content="on">
+    @Styles.Render("~/resources/style")
+    @Styles.Render("~/resources/css/style")
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--[if lt IE 9]>
+        <script src="https://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <title>@ViewBag.Title</title>
+    @RenderSection("seo", required: false)
+    @{ Html.RenderPartial("Partials/_HeadAdditionalPartial"); }
+    <link rel="alternate" href="@Url.AbsoluteAction("index", "rss", new {})" type="application/rss+xml" title="Blog Feed | @appConfig.SiteSettings.Name" />
+</head>
+<body class="stretched no-transition">
+    <div id="amazon-root"></div>
+    <div id="wrapper" class="clearfix">
+        @{Html.RenderPartial("Partials/_HeaderPartial");}
+        @RenderSection("PageTitle", required: false)
+        <section id="content">
+            <div class="content-wrap">
+                <div class="container clearfix">
+                    <div class="row clearfix">
+                        <div class="col-md-9">
+                            @RenderBody()
+                        </div>
+                        <div class="w-100 line d-block d-md-none"></div>
+                        <div class="col-md-3 clearfix dmc-getAjaxContent">
+                            <div class="clearfix dmc-getAjaxContent" data-url="@Url.Action("usermenu", "account")"></div>
+                            @if (appConfig.ContentSettings.IsAdvertisingEnabled)
+                            {
+                                <div class="widget clearfix dmc-getAjaxContent adBody" data-source="@Url.Action("random", "banner", new { type = Dmc.Cms.Model.AdvertisementType.Aside })"></div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        @{Html.RenderPartial("Partials/_FooterPartial");}
+    </div>
+    <div id="gotoTop" class="icon-angle-up"></div>
+    <form class="hidden" id="__AjaxAntiForgeryForm" action="#" method="post">@Html.AntiForgeryToken()</form>
+    @Scripts.RenderFormat(@"<script src=""{0}"" integrity=""sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="" crossorigin=""anonymous""></script>", "~/scripts/jquery")
+    @Scripts.Render("~/scripts/knockout")
+    <script>
+        window.jQuery || document.write('<script src="@Url.Content("~/resources/js/jquery.js")"><\/script>')
+        window.ko || document.write('<script src="@Url.Content("~/resources/js/knockout-min.js")"><\/script>')
+    </script>
+    @Scripts.Render("~/scripts/js")
+    @{ Html.RenderPartial("Partials/_ExternalLoginAdditionalPartial"); }
+    @RenderSection("scripts", false)
+    @{Html.RenderPartial("Partials/_EndOfBodyScriptsPartial");}
+    @{Html.RenderPartial("Partials/_AnalyticsPartial");}
+</body>
+</html>

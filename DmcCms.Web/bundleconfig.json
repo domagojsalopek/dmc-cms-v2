@@ -1,0 +1,66 @@
+[
+  {
+    "outputFileName": "Resources/style.min.css",
+    "inputFiles": [
+      "Resources/style.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "Resources/css/fonts-and-bootstrap.css",
+    "inputFiles": [
+      "Resources/css/fonts-local.css",
+      "Resources/css/bootstrap.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "Resources/css/main-style-bundle.css",
+    "inputFiles": [
+      "Resources/css/dark.css",
+      "Resources/css/font-icons.css",
+      "Resources/css/animate.css",
+      "Resources/css/magnific-popup.css",
+      
+      "Resources/css/fonts.css",
+      "Resources/css/sharebuttons.css",
+      "Resources/css/yt.css",
+      "Resources/css/prism/themes/prism-vs.css",
+      "Resources/css/responsive.css"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "Resources/js/scripts-bundle.js",
+    "inputFiles": [
+      "Resources/js/plugins.js",
+      "Resources/js/functions.js",
+      "Resources/js/jquery.validate.unobtrusive.min.js",
+      "Resources/js/jquery-dateformat.min.js",
+      "Resources/js/prism.js",
+      "Resources/js/custom/dmc.util.js",
+      "Resources/js/custom/dmc.ajax.js",
+      "Resources/js/custom/dmc.ui.js",
+      "Resources/js/custom/dmc.init.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "commentMode": "none"
+    }
+  },
+  {
+    "outputFileName": "Resources/js/custom/dmc.init.external.min.js",
+    "inputFiles": [
+      "Resources/js/custom/dmc.init.external.js"
+    ]
+  }
+]

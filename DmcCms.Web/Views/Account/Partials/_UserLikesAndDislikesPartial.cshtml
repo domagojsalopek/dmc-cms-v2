@@ -1,0 +1,47 @@
+﻿@model Dmc.Cms.Web.ViewModels.AccountDetailsViewModel
+@if (Model.RatedPosts != null && Model.RatedPosts.Count > 0)
+{
+    <div class="row topmargin-sm clearfix" id="account_favourite_posts_container">
+        @foreach (var item in Model.RatedPosts)
+        {
+            string linkToPost = Url.Action("details", "default", new { slug = item.Slug });
+            string liked = item.HasRating && item.Liked ? "active" : string.Empty;
+            string notLiked = item.HasRating && !item.Liked ? "active" : string.Empty;
+
+            <div class="col-xs-12 bottommargin-sm singleFavouritePost" id="account-post-@item.Id">
+                <div class="ipost clearfix">
+                    <div class="row clearfix">
+                        @if (item.PreviewImage != null)
+                        {
+                            <div class="col-sm-4">
+                                <div class="entry-image">
+                                    <a href="@linkToPost"><img class="image_fade" src="@Url.Content(item.PreviewImage.LargeImage)" alt="@item.PreviewImage.AltText"></a>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-sm-8">
+                            <div class="entry-title">
+                                <h3><a href="@linkToPost">@item.Title</a></h3>
+                            </div>
+                            <ul class="entry-meta clearfix">
+                                @if (item.Published.HasValue)
+                                {
+                                    <li><i class="icon-calendar3"></i> @item.Published.Value.ToString("dd. MMMM, yyyy.")</li>
+                                }
+                                <li><a data-id="@item.Id" data-action="like" class="doRate like-@item.Id @liked" href="#" data-url="@Url.Action("ratepost", "service", new { id = item.Id, like = true })"><i class="icon-thumbs-up"></i> <span class="actionDesc" style="@(item.Liked ? "" : "display:none;")">Liked</span></a></li>
+                                <li><a data-id="@item.Id" data-action="dislike" class="doRate dislike-@item.Id @notLiked" href="#" data-url="@Url.Action("ratepost", "service", new { id = item.Id, like = false })"><i class="icon-thumbs-down"></i> <span class="actionDesc" style="@(item.Liked ? "display:none;" : "")">Disliked</span></a></li>
+                            </ul>
+                            <div class="entry-content">
+                                @(new HtmlString(item.Description))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>You do not currently have any Likes or Dislikes.</p>
+}

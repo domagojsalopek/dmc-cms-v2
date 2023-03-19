@@ -1,0 +1,11 @@
+﻿@model List<TagListViewModel>
+@if (Model.Count > 0)
+{
+    <h4>Tag Cloud</h4>
+    <div class="tagcloud">
+        @foreach (var item in Model)
+        {
+            <a href="@Url.Action("PostsByTag", "default", new { tagName = item.Slug })">@item.Name</a>
+        }
+    </div>
+}

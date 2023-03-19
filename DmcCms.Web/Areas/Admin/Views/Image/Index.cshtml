@@ -1,0 +1,63 @@
+﻿@model EntityList
+@{
+    var viewModel = new AdminImageViewModel();
+    var results = new EntityList<AdminImageViewModel>(Model);
+    ViewBag.Title = "Images";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New »", "Create", "Image", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.AltText)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.SmallImageUploadPath)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.LargeImageUploadPath)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in results.Results)
+    {
+        <tr id="item-@item.Id">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AltText)
+            </td>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.SmallImageUploadPath))
+                {
+                    <img src="@Url.Content(item.SmallImageUploadPath)" style="width: 100px;" />
+                }
+            </td>
+            <td>
+                @if (!string.IsNullOrWhiteSpace(item.LargeImageUploadPath))
+                {
+                    <img src="@Url.Content(item.LargeImageUploadPath)" style="width: 100px;" />
+                }
+            </td>
+            <td>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, controller = "image", area = "admin" }, new { @class = "btn btn-primary" })
+                </p>
+            </td>
+            <td class="danger">
+            </td>
+        </tr>
+    }
+
+</table>

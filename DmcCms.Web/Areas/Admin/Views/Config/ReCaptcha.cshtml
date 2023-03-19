@@ -1,0 +1,30 @@
+﻿@model Dmc.Cms.App.ReCaptchaSettings
+
+@{
+    ViewBag.Title = "ReCaptcha";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.UseRecaptcha)
+        @Html.CheckBoxFor(o => o.UseRecaptcha)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.RecaptchaSiteKey)
+        @Html.TextBoxFor(o => o.RecaptchaSiteKey, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.RecaptchaSecretKey)
+        @Html.TextBoxFor(o => o.RecaptchaSecretKey, new { @class = "form-control" })
+    </div>
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

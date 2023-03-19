@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Permissions Missing";
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+
+        <div class="acctitle"><i class="acc-closed icon-lock3"></i><i class="acc-open icon-unlock"></i>Login to your Account</div>
+        <div class="acc_content clearfix">
+
+            @using (Html.BeginForm("PermissionsMissing", "Account", new { ReturnUrl = ViewBag.ReturnUrl ?? Request.QueryString["ReturnUrl"] }, FormMethod.Post, new { @id = "login-form", @class = "nobottommargin" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Partial("Partials/_MessagesPartial")
+                @Html.Partial("Partials/_HoneyPotPartial")
+
+                <p>
+                    We need your <strong><em>e-mail address</em></strong> 
+                    to provide you with a better experience.
+                    Please use the button below to give us permissions.
+                    When prompted, please allow us to get your e-mail from Facebook.
+                </p>
+
+                <div class="col_full fbElement">
+                    <a id="requestFbPermissionsAgain" class="button button-rounded btn-block t400 center capitalize si-facebook si-colored noleftmargin norightmargin" href="#">Continue with Facebook</a>
+                </div>
+
+                <p>
+                    Every feature on this website which requires your E-mail address will require additional <strong><em>explicit consent</em></strong> from you.
+                    We will <strong><em>not</em></strong> send you unsolicited e-mail or spam.  We will <strong><em>never</em></strong>
+                    share your e-mail with third parties.
+                </p>
+                <p>
+                    You <strong><em>always</em></strong> can <strong><em>delete</em></strong> all data from our database.
+                </p>
+                <p>
+                    For more information, take a look at our <a href="@(Url.AbsoluteAction("details", "page", new { slug = "privacy-policy" }))" target="_blank">privacy</a>
+                    and <a href="@(Url.AbsoluteAction("details", "page", new { slug = "cookie-policy" }))" target="_blank">cookie</a> policies.
+                </p>
+
+                <div class="col_full nobottommargin">
+                    <h4><i class="acc-closed icon-user4"></i> You also have the possibility to <a href="@Url.Action("Register", "Account")">register for an Account</a>.</h4>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section PageTitle
+{
+    <div class="clearfix"></div>
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>Account</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Login", "Account")">Login</a></li>
+                <li class="breadcrumb-item active">Permissions Missing</li>
+            </ol>
+        </div>
+    </section>
+}

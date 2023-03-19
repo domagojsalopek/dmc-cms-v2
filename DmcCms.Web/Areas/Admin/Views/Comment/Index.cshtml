@@ -1,0 +1,40 @@
+﻿@model EntityList
+
+@{
+    var viewModel = new AdminCommentViewModel();
+    var results = new EntityList<AdminCommentViewModel>(Model);
+    ViewBag.Title = "Comments";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Text)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in results.Results)
+    {
+        <tr id="item-@item.Id">
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, controller = "comment", area = "admin" }, new { @class = "btn btn-primary" })
+                </p>
+            </td>
+        </tr>
+    }
+
+</table>

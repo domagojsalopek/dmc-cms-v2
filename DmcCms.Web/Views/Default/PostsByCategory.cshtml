@@ -1,0 +1,81 @@
+﻿@model CategoryViewModel
+@{
+    var appConfig = Html.GetAppConfig();
+    var viewModel = new PostViewModel();
+    ViewBag.Title = Model.Title;
+    string description = string.IsNullOrWhiteSpace(Model.Description)
+        ? ViewBag.Title
+        : HttpUtility.HtmlEncode(Model.Description.StripTags().ShortenToClosestMeaningfulPart(200));
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div id="posts">
+        @foreach (var item in Model.Posts.Results)
+        {
+            Html.RenderPartial("Partials/_SinglePostInListPartial", item);
+        }
+    </div>
+    @if (Model.Posts.TotalPages > 1)
+    {
+        <div class="row mb-3">
+            <div class="col-12">
+                @if (Model.Posts.HasPreviousPage)
+                {
+                    <a href="@Url.Action("PostsByCategory", "default", new { categoryName = Model.Slug, page = Model.Posts.PageIndex - 1 })" class="btn btn-outline-secondary float-left">&larr; Newer</a>
+                }
+                @if (Model.Posts.HasNextPage)
+                {
+                    <a href="@Url.Action("PostsByCategory", "default", new { categoryName = Model.Slug, page = Model.Posts.PageIndex + 1 })" class="btn btn-outline-dark float-right">Older &rarr;</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section PageTitle
+{
+    @{
+        string style = Model.IntroImage != null && !string.IsNullOrWhiteSpace(Model.IntroImage.LargeImage)
+            ? string.Format("background-image: url('{0}');", Url.Content(Model.IntroImage.LargeImage))
+            : string.Format("background-image: url('{0}');", Url.Content(appConfig.SiteResources.DefaultSiteHeader ?? "~/resources/custom/site-header.jpg"));
+    }
+    <section id="page-title" class="page-title-parallax page-title-dark" style="@style" data-stellar-background-ratio="0.1">
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">@Model.Title</h1>
+            <span data-animate="fadeInUp" data-delay="300">@description</span>
+        </div>
+    </section>
+}
+
+@section seo
+{
+    @{
+        string ogImageUrl = Model.IntroImage != null && !string.IsNullOrWhiteSpace(Model.IntroImage.LargeImage)
+            ? Url.AbsoluteContent(Model.IntroImage.LargeImage)
+            : Url.AbsoluteContent(appConfig.SiteResources.DefaultOpenGraphImage);
+
+        var detailImageInfo = Model.IntroImage != null && !string.IsNullOrWhiteSpace(Model.IntroImage.LargeImage)
+            ? ImageInfoProvider.GetImageInfo(Model.IntroImage.LargeImage)
+            : ImageInfoProvider.GetImageInfo(appConfig.SiteResources.DefaultOpenGraphImage);
+    }
+    @if (Model.Posts.HasPreviousPage)
+    {
+        <link rel="prev" href="@Url.Action("PostsByCategory", "default", new { categoryName = Model.Slug, page = Model.Posts.PageIndex - 1 })" />
+    }
+    @if (Model.Posts.HasNextPage)
+    {
+        <link rel="next" href="@Url.Action("PostsByCategory", "default", new { categoryName = Model.Slug, page = Model.Posts.PageIndex + 1 })" />
+    }    
+    <meta property="og:image" content="@ogImageUrl" />
+    @if (detailImageInfo != null)
+    {
+        <meta property="og:image:height" content="@detailImageInfo.Height">
+        <meta property="og:image:width" content="@detailImageInfo.Width">
+    }
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:site_name" content="@appConfig.SiteSettings.Name" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Url.AbsoluteAction("PostsByCategory", "default", new { categoryName = Model.Slug, page = Model.Posts.PageIndex })" />
+    <meta property="og:description" content="@description" />
+    <meta name="description" content="@description" />
+}

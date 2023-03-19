@@ -1,0 +1,16 @@
+﻿@model Dmc.Cms.Web.ViewModels.AccountDetailsViewModel
+<ul class="sidenav">
+    <li><a href="@Url.Action("index", "account")" class="list-group-item list-group-item-action clearfix">Profile <i class="icon-user float-right"></i></a></li>
+    <li><a href="@Url.Action("changenickname", "account")" class="list-group-item list-group-item-action clearfix">Change Nickname <i class="icon-user-astronaut float-right"></i></a></li>
+    @if (Model.HasPassword && Model.EmailConfirmed)
+    {
+        <li><a href="@Url.Action("changepassword", "account")" class="list-group-item list-group-item-action clearfix">Change Password <i class="icon-lock float-right"></i></a></li>
+    }
+    @if (!Model.HasPassword)
+    {
+        <li><a href="@Url.Action("addpassword", "account")" class="list-group-item list-group-item-action clearfix">Add Password <i class="icon-lock float-right"></i></a></li>
+    }
+    <li><a href="@Url.Action("manageexternallogins", "account")" class="list-group-item list-group-item-action clearfix">Manage Logins <i class="icon-facebook-f float-right"></i></a></li>
+    <li><a href="#" id="sidebar_logout" data-url="@Url.Action("logoff", "account")" data-after-url="/" class="list-group-item list-group-item-action clearfix">Logout <i class="icon-line2-logout float-right"></i></a></li>
+    <li><a href="@Url.Action("delete", "account")" class="list-group-item list-group-item-action clearfix danger">Delete Account <i class="icon-remove float-right"></i></a></li>
+</ul>

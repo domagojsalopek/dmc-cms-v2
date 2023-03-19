@@ -1,0 +1,85 @@
+﻿@model Dmc.Cms.Web.ViewModels.ExternalLoginViewModel
+
+@{
+    ViewBag.Title = "Disassociate Login";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+
+        <div class="acctitle"><i class="acc-closed icon-lock3"></i><i class="acc-open icon-lock"></i>@ViewBag.Title</div>
+        <div class="acc_content clearfix">
+
+            @using (Html.BeginForm("DisassociateExternalLogin", "Account", new { }, FormMethod.Post, new { @id = "disassociate-form", @class = "nobottommargin", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Partial("Partials/_MessagesPartial")
+                @Html.Partial("Partials/_HoneyPotPartial")
+
+                @Html.HiddenFor(o => o.ExternalLoginProvider)
+                @Html.HiddenFor(o => o.Id)
+
+                <div class="style-msg infomsg">
+                    <div class="sb-msg">
+                        You <strong><em>always</em></strong> can <strong><em>add</em></strong> this login again.
+                    </div>
+                </div>
+                <p>
+                    We will <strong><em>never</em></strong> post as you, pretend to be you or sell this info to others.
+                </p>
+                <p>
+                    For more information, take a look at our <a href="@(Url.AbsoluteAction("details", "page", new { slug = "privacy-policy" }))" target="_blank">privacy</a>
+                    and <a href="@(Url.AbsoluteAction("details", "page", new { slug = "cookie-policy" }))" target="_blank">cookie</a> policies.
+                </p>
+
+                <div class="col_full">
+                    <button type="submit" class="button button-3d button-black nomargin" name="perform-disassociate" value="delete">Disassociate</button>
+                    <button onclick="location.href='@Url.Action("Index", "Account")';" class="button button-3d button-blue nomargin" id="CancelDisassociate">Cancel</button>
+                </div>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+@section PageTitle
+{
+    <div class="clearfix"></div>
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>Disassociate External Login</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Account")">Account</a></li>
+                <li class="breadcrumb-item active">Disassociate Login</li>
+            </ol>
+        </div>
+    </section>
+}
+
+@section scripts{
+    <script>
+        (function ($) {
+            $('#disassociate-form').on('submit', function (e) {
+                var $form = $(this);
+                e.preventDefault();
+                if (!FB) {
+                    $form.off('submit').submit();
+                    return;
+                }
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        FB.api('/me/permissions', 'delete', function (response) {
+                            $form.off('submit').submit();
+                        });
+                    }
+                    else {
+                        $form.off('submit').submit();
+                    }
+                });
+            });
+        }(jQuery));
+    </script>
+}

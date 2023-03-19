@@ -1,0 +1,34 @@
+﻿@model IEnumerable<PostViewModel>
+<h4 class="highlight-me">Favourite Posts</h4>
+<div id="favourite-post-list-footer">
+    @if (Model.Any())
+    {
+        foreach (var item in Model)
+        {
+            string linkToPost = Url.Action("details", "default", new { slug = item.Slug });
+
+            <div class="spost clearfix">
+                @if (item.PreviewImage != null)
+                {
+                    <div class="entry-image">
+                        <a href="@linkToPost" class="nobg"><img src="@Url.Action("image", "content", new { imageId = item.PreviewImage.Id, width = 48, height = 48 })" alt="@item.PreviewImage.AltText"></a>
+                    </div>
+                }
+                <div class="entry-c">
+                    <div class="entry-title">
+                        <h4><a href="@linkToPost">@item.Title</a></h4>
+                    </div>
+                    <ul class="entry-meta">
+                        <li>@item.Published.Value.ToString("dd. MMMM, yyyy.")</li>
+                    </ul>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="promo promo-border promo-mini">
+            <h3>You currently do not have any <span>Favourite Posts</span>.</h3>
+        </div>
+    }
+</div>

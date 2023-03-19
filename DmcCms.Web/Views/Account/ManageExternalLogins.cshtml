@@ -1,0 +1,147 @@
+﻿@model Dmc.Cms.Web.ViewModels.AssociateExternalLoginViewModel
+
+@{
+    bool allowedToRemoveExternalLogin = Model.AllowedToDisassociate;
+    ViewBag.Title = "Manage Logins";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+
+        <div class="acctitle"><i class="acc-open icon-lock3"></i><i class="acc-open icon-lock"></i>@ViewBag.Title</div>
+        <div class="acc_content clearfix">
+
+            @using (Html.BeginForm("ManageExternalLogins", "Account", new { }, FormMethod.Post, new { @id = "login-form", @class = "nobottommargin", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Partial("Partials/_MessagesPartial")
+                @Html.Partial("Partials/_HoneyPotPartial")
+
+                if (!Model.EmailConfirmed)
+                {
+                    <div id="EmailNotConfirmedNotification" class="style-msg infomsg">
+                        <div class="sb-msg">
+                            Your e-mail address is not confirmed. Please follow the link we have sent you. If you did not receive a link,
+                            we can <strong><em><a id="ResendConfirmationEmail" href="#" data-url="@Url.Action("ResendConfirmationEmail", "Account")">resend confirmation e-mail</a></em></strong>.
+                        </div>
+                    </div>
+                    <div id="ResendConfirmationEmailSuccessNotification" class="style-msg successmsg" style="display:none;">
+                        <div class="sb-msg">
+                            We have sent you a confirmation e-mail again. <strong><em>Please check your Spam folder</em></strong>.
+                        </div>
+                    </div>
+                }
+
+                if (!Model.HasPassword)
+                {
+                    <div class="style-msg infomsg">
+                        <div class="sb-msg">
+                            You do not currently have a password. While you can always login using an external service,
+                            having a password makes it possible to <strong><em>login using your email/password</em></strong> as well.
+                            <strong><em><a href="@Url.Action("AddPassword", "Account")">Create a password</a></em></strong>.
+                        </div>
+                    </div>
+                }
+
+                if (Model.AlreadyAssociatedProviders.Count > 0)
+                {
+                    <div class="line line-sm"></div>
+                    <h4 style="margin-bottom: 15px;">Your existing logins</h4>
+                    <p>
+                        You may login into the site using these services.
+                    </p>
+                    if (allowedToRemoveExternalLogin)
+                    {
+                        <p>You may remove an external login. If you wish to login using that service again, you will need to associate it with your account.</p>
+                    }
+                    <div class="col_full">
+                        @foreach (string provider in Model.AlreadyAssociatedProviders)
+                        {
+                            <div>
+                                @if (allowedToRemoveExternalLogin)
+                                {
+                                    <a href="@(Url.Action("DisassociateExternalLogin", "account", new { provider = provider }))" class="button button-3d button-rounded si-@provider si-colored"><i class="icon-@provider"></i>@provider.ToUpper()</a>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-lg btn-primary button-3d si-@provider si-colored" disabled="disabled">@provider.ToUpper()</button>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+
+                if (Model.AllowedToAssociate)
+                {
+                    <div class="line line-sm"></div>
+                    <h4 style="margin-bottom: 15px;">Add a new login</h4>
+                    <p>
+                        Once you add an external login, you will be able to login to this site using that service.
+                    </p>
+
+                    <div class="style-msg infomsg noCookiesWarning">
+                        <div class="sb-msg">You will need to <strong><em>allow cookies</em></strong> for this to work.</div>
+                        <div class="sb-msg"><a href="#" class="iubenda-advertising-preferences-link">Manage cookie settings</a>.</div>
+                    </div>
+
+                    <p>
+                        We will <strong><em>never</em></strong> post as you, pretend to be you or sell this info to others.
+                    </p>
+
+                    <div class="amazonElement fbElement">
+                        <div class="col_full">
+                            @if (Model.AvailableProviders.Contains(ExternalLoginKeys.Amazon, StringComparer.OrdinalIgnoreCase))
+                            {
+                                <div class="amazonLogin amazonElement" style="display:none;">
+                                    <a href="#" class="loginWithAmazon">
+                                        <img border="0" alt="Login with Amazon"
+                                             src="https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_156x32.png"
+                                             width="156" height="32" />
+                                    </a>
+                                </div>
+                            }
+                            @if (Model.AvailableProviders.Count > 1)
+                            {
+                                <span class="d-none d-md-block">&nbsp;</span>
+                            }
+                            @if (Model.AvailableProviders.Contains(ExternalLoginKeys.Facebook, StringComparer.OrdinalIgnoreCase))
+                            {
+                                <div class="fbLogin fbElement" style="display:none;">
+                                    <div class="fb-login-button" scope="public_profile,email" onlogin="associateFb();" data-width="" data-size="medium" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <p>
+                        You <strong><em>always</em></strong> can <strong><em>delete</em></strong> an association from your profile.
+                    </p>
+                }
+
+                <p>
+                    For more information, take a look at our <a href="@(Url.AbsoluteAction("details", "page", new { slug = "privacy-policy" }))" target="_blank">privacy</a>
+                    and <a href="@(Url.AbsoluteAction("details", "page", new { slug = "cookie-policy" }))" target="_blank">cookie</a> policies.
+                </p>
+            }
+
+        </div>
+
+    </div>
+</div>
+
+
+@section PageTitle
+{
+    <div class="clearfix"></div>
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>Manage Logins</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Account")">Account</a></li>
+                <li class="breadcrumb-item active">Manage Logins</li>
+            </ol>
+        </div>
+    </section>
+}

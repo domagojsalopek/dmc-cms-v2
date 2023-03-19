@@ -1,0 +1,101 @@
+﻿@model Dmc.Cms.Web.ViewModels.PostViewModel
+@{
+    var category = Model.Categories.OrderBy(o => o.Name).FirstOrDefault();
+    var appConfig = Html.GetAppConfig();
+    ViewBag.Title = Model.Title;
+    var detailImageInfo = Model.DetailImage != null && !string.IsNullOrWhiteSpace(Model.DetailImage.LargeImage)
+        ? ImageInfoProvider.GetImageInfo(Model.DetailImage.LargeImage)
+        : ImageInfoProvider.GetImageInfo(appConfig.SiteResources.DefaultOpenGraphImage);
+    string fullUrl = Url.AbsoluteAction("details", "default", new { slug = Model.Slug });
+    string openGraphDescription = Model.Description.StripTags().ShortenToClosestMeaningfulPart(300);
+    string socialTitle = Model.Title.ShortenToClosestMeaningfulPart(100);
+    string openGraphImageLink = Model.DetailImage != null && !string.IsNullOrWhiteSpace(Model.DetailImage.LargeImage)
+        ? Url.AbsoluteContent(Model.DetailImage.LargeImage)
+        : Url.AbsoluteContent(appConfig.SiteResources.DefaultOpenGraphImage);
+}
+<div class="postcontent nobottommargin clearfix">
+    <div class="single-post nobottommargin">
+        <div class="entry clearfix">
+            <div class="entry-title">
+                <h1>@Model.Title</h1>
+            </div>
+            @{ Html.RenderPartial("Partials/_PostMetaPartial"); }
+            @if (Model.DetailImage != null)
+            {
+                <div class="entry-image">
+                    <a href="@Url.Content(Model.DetailImage.LargeImage)" data-lightbox="image"><img class="image_fade" src="@Url.Content(Model.DetailImage.SmallImage)" alt="@(string.IsNullOrEmpty(Model.DetailImage.AltText) ? Model.Title : Model.DetailImage.AltText)"></a>
+                </div>
+            }
+            <div class="entry-content notopmargin">
+                @(new HtmlString(Model.Content))
+                @{
+                    if (appConfig.ContentSettings.IsAdvertisingEnabled)
+                    {
+                        Html.RenderPartial("Partials/_PostDetailsAdsPartial", Model);
+                    }                    
+                    Html.RenderPartial("Partials/_PostDetailsTagCloudPartial", Model);
+                    Html.RenderPartial("Partials/_SharePostPartial", Model);
+                }
+            </div>
+        </div>
+        @if (Model.PreviousPost != null || Model.NextPost != null)
+        {
+            <div class="post-navigation clearfix">
+                @if (Model.PreviousPost != null)
+                {
+                    <div class="col_half nobottommargin">
+                        <a href="@Url.Action("details", "default", new { slug = Model.PreviousPost.Slug })">&lArr; @Model.PreviousPost.Title</a>
+                    </div>
+                }
+                @if (Model.NextPost != null)
+                {
+                    <div class="col_half col_last tright nobottommargin">
+                        <a href="@Url.Action("details", "default", new { slug = Model.NextPost.Slug })">@Model.NextPost.Title &rArr;</a>
+                    </div>
+                }
+            </div>
+        }
+        @{ Html.RenderPartial("Partials/_CommentsPartial", new AddCommentViewModel { PostId = Model.Id }); }
+    </div>
+</div>
+
+@section PageTitle
+{
+    <div class="clearfix"></div>
+    @if (category != null)
+    {
+        <section id="page-title" class="page-title-mini page-title-right">
+            <div class="container clearfix">
+                <ol class="breadcrumb clearfix">
+                    <li class="breadcrumb-item"><a href="@Url.Content("~/")">Home</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("postsbycategory", "default", new { categoryName = category.Slug })">@category.Name</a></li>
+                    <li class="breadcrumb-item active">@Model.Title</li>
+                </ol>
+            </div>
+        </section>
+    }
+}
+
+@section seo
+{
+    <link rel="canonical" href="@fullUrl" />
+    <meta name="description" content="@Html.Raw(openGraphDescription)" />
+    <meta property="og:title" content="@socialTitle" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@fullUrl" />
+    <meta property="og:image" content="@openGraphImageLink" />
+    <meta property="og:site_name" content="@appConfig.SiteSettings.Name" />
+    <meta property="og:description" content="@Html.Raw(openGraphDescription)" />
+    @if (detailImageInfo != null)
+    {
+        <meta property="og:image:height" content="@detailImageInfo.Height">
+        <meta property="og:image:width" content="@detailImageInfo.Width">
+    }
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@string.Format("@{0}", appConfig.SocialLinks.Twitter)">
+    <meta name="twitter:title" content="@socialTitle">
+    <meta name="twitter:description" content="@Html.Raw(openGraphDescription)">
+    <meta name="twitter:creator" content="@string.Format("@{0}", appConfig.SocialLinks.Twitter)">
+    <meta name="twitter:image" content="@openGraphImageLink">
+    <meta name="twitter:domain" content="@Request.Url.Host">
+}

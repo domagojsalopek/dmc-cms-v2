@@ -1,0 +1,64 @@
+﻿@model EntityList<PostViewModel>
+@{
+    var appConfig = Html.GetAppConfig();
+    ViewBag.Title = appConfig.SiteSettings.Description;
+    var imageInfo = ImageInfoProvider.GetImageInfo(appConfig.SiteResources.DefaultOpenGraphImage);
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div id="posts">
+        @foreach (var item in Model.Results)
+        {
+            Html.RenderPartial("Partials/_SinglePostInListPartial", item);
+        }
+    </div>
+    @if (Model.TotalPages > 1)
+    {
+        <div class="row mb-3">
+            <div class="col-12">
+                @if (Model.HasPreviousPage)
+                {
+                    <a href="@Url.Action("index", "default", new { page = Model.PageIndex - 1 })" class="btn btn-outline-secondary float-left">&larr; Newer</a>
+                }
+                @if (Model.HasNextPage)
+                {
+                    <a href="@Url.Action("index", "default", new { page = Model.PageIndex + 1 })" class="btn btn-outline-dark float-right">Older &rarr;</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section PageTitle
+{
+    <section id="page-title" class="page-title-parallax page-title-dark" style="background-image: url('@(Url.Content(appConfig.SiteResources.DefaultSiteHeader ?? "~/resources/custom/site-header.jpg"))');" data-stellar-background-ratio="0.1">
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">@appConfig.SiteSettings.Name</h1>
+            <span data-animate="fadeInUp" data-delay="400">@appConfig.SiteSettings.Description</span>
+        </div>
+    </section>
+}
+
+@section seo
+{
+    @if (Model.HasPreviousPage)
+    {
+        <link rel="prev" href="@Url.Action("index", "default", new { page = Model.PageIndex - 1 })" />
+    }
+    @if (Model.HasNextPage)
+    {
+        <link rel="next" href="@Url.Action("index", "default", new { page = Model.PageIndex + 1 })" />
+    }
+    @if (imageInfo != null)
+    {
+        <meta property="og:image:height" content="@imageInfo.Height">
+        <meta property="og:image:width" content="@imageInfo.Width">
+        <meta property="og:image" content="@(Url.AbsoluteContent(appConfig.SiteResources.DefaultOpenGraphImage))">
+    }
+    <meta property="og:description" content="@appConfig.SiteSettings.Description">
+    <meta name="description" content="@appConfig.SiteSettings.Description" />
+    <meta property="og:title" content="@appConfig.SiteSettings.Name">
+    <meta property="og:site_name" content="@appConfig.SiteSettings.Name" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Url.AbsoluteAction("index", "default", new { page = Model.PageIndex })" />
+}

@@ -1,0 +1,46 @@
+﻿@model Dmc.Cms.Web.ViewModels.UserLoginViewModel
+
+<div class="modal1 mfp-hide" id="modal-login">
+    <div class="block divcenter" style="background-color: #FFF; max-width: 400px;">
+        <div style="padding: 50px;">
+
+            <h3 class="font-body">Login to your Account</h3>
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl ?? Request.Url.PathAndQuery }, FormMethod.Post, new { @id = "login-form", @class = "nobottommargin dmc-ajaxSubmit" }))
+            {
+                @Html.AntiForgeryToken()
+                @*@Html.Partial("Partials/_MessagesPartial")*@
+                @Html.Partial("Partials/_HoneyPotPartial")
+
+                <div class="col_full">
+                    @Html.LabelFor(o => o.Email)
+                    @Html.TextBoxFor(o => o.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(o => o.Email, "", new { @class = "help-block text-danger formError" })
+                </div>
+
+                <div class="col_full">
+                    @Html.LabelFor(o => o.Password)
+                    @Html.PasswordFor(o => o.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(o => o.Password, "", new { @class = "help-block text-danger formError" })
+                </div>
+
+                <div class="col_full">
+                    @Html.CheckBoxFor(o => o.RememberMe)
+                    @Html.LabelFor(o => o.RememberMe)
+                </div>
+
+                <div class="col_full">
+                    <button type="submit" class="button button-rounded nomargin" id="login-form-modal-submit" name="login-form-modal-submit" value="login">Login</button>
+                    <a href="@Url.Action("forgotpassword", "account")" class="fright">Forgot Password?</a>
+                </div>
+
+                <div class="col_full nobottommargin">
+                    <h4><a href="@Url.Action("Register", "Account")">New here? Register for an Account</a></h4>
+                </div>
+
+                Html.RenderPartial("Partials/_ExternalLoginsPartial");
+            }
+
+        </div>
+    </div>
+</div>

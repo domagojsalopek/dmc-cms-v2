@@ -1,0 +1,74 @@
+﻿@model Dmc.Cms.Web.ViewModels.UserLoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+
+        <div class="acctitle"><i class="acc-closed icon-lock3"></i><i class="acc-open icon-unlock"></i>Login to your Account</div>
+        <div class="acc_content clearfix">
+
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl ?? Request.QueryString["ReturnUrl"] }, FormMethod.Post, new { @id = "login-form", @class = "nobottommargin" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Partial("Partials/_MessagesPartial")
+                @Html.Partial("Partials/_HoneyPotPartial")
+
+                <div class="col_full">
+                    @Html.LabelFor(o => o.Email)
+                    @Html.TextBoxFor(o => o.Email, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(o => o.Email, "", new { @class = "help-block text-danger formError" })
+                </div>
+
+                <div class="col_full">
+                    @Html.LabelFor(o => o.Password)
+                    @Html.PasswordFor(o => o.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(o => o.Password, "", new { @class = "help-block text-danger formError" })
+                </div>
+
+                <div class="col_full form-group">
+                    @Html.CheckBoxFor(o => o.RememberMe)
+                    @Html.LabelFor(o => o.RememberMe)
+                </div>
+
+                <div class="col_full">
+                    <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+                    <a href="@Url.Action("ForgotPassword", "Account")" class="fright">Forgot Password?</a>
+                </div>
+
+                <div class="col_full nobottommargin">
+                    <h4><i class="acc-closed icon-user4"></i> <a href="@Url.Action("Register", "Account")">New here? Register for an Account</a></h4>
+                </div>
+
+                Html.RenderPartial("Partials/_ExternalLoginsPartial");
+            }
+
+        </div>
+
+    </div>
+</div>
+
+@section PageTitle
+{
+    <section id="page-title">
+
+        <div class="container clearfix">
+            <h1>Account</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Login</li>
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+@section scripts{
+    <script>
+        (function ($) {
+            $('#@Html.IdFor(o => Model.Email)').focus();
+        }(jQuery));
+    </script>
+}

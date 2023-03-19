@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{07231C35-0EC7-408C-B7D0-18298E9090A2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dmc.Cms.Repository.Ef</RootNamespace>
+    <AssemblyName>Dmc.Cms.Repository.Ef</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CmsUnitOfWork.cs" />
+    <Compile Include="Configuration\AdvertisementConfiguration.cs" />
+    <Compile Include="Configuration\AppConfiguration.cs" />
+    <Compile Include="Configuration\CategoryConfiguration.cs" />
+    <Compile Include="Configuration\CommentConfiguration.cs" />
+    <Compile Include="Configuration\ContactQueryConfiguration.cs" />
+    <Compile Include="Configuration\CookieConsentConfiguration.cs" />
+    <Compile Include="Configuration\DatabaseEntityConfiguration.cs" />
+    <Compile Include="Configuration\EventConfiguration.cs" />
+    <Compile Include="Configuration\GeneralContentConfiguration.cs" />
+    <Compile Include="Configuration\GeneralContentGroupConfiguration.cs" />
+    <Compile Include="Configuration\ImageConfiguration.cs" />
+    <Compile Include="Configuration\LinkConfiguration.cs" />
+    <Compile Include="Configuration\NewsletterConfiguration.cs" />
+    <Compile Include="Configuration\NewsletterSubscriptionConfiguration.cs" />
+    <Compile Include="Configuration\OptionConfiguration.cs" />
+    <Compile Include="Configuration\PageConfiguration.cs" />
+    <Compile Include="Configuration\PostConfiguration.cs" />
+    <Compile Include="Configuration\RatingConfiguration.cs" />
+    <Compile Include="Configuration\TagConfiguration.cs" />
+    <Compile Include="Configuration\UserClaimConfiguration.cs" />
+    <Compile Include="Configuration\UserConfiguration.cs" />
+    <Compile Include="Configuration\UserLoginConfiguration.cs" />
+    <Compile Include="Configuration\UserRoleConfiguration.cs" />
+    <Compile Include="Context\CmsContext.Configuration.cs" />
+    <Compile Include="Context\CmsContext.cs" />
+    <Compile Include="Context\CmsContext.Repositories.cs" />
+    <Compile Include="Identity\RoleRepository.cs" />
+    <Compile Include="Identity\UserRepository.cs" />
+    <Compile Include="Migrations\201911170238149_Initial.cs" />
+    <Compile Include="Migrations\201911170238149_Initial.Designer.cs">
+      <DependentUpon>201911170238149_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AdvertisementRepository.cs" />
+    <Compile Include="Repository\CommentRepository.cs" />
+    <Compile Include="Repository\CookieConsentRepository.cs" />
+    <Compile Include="Repository\AppRepository.cs" />
+    <Compile Include="Repository\CategoryRepository.cs" />
+    <Compile Include="Repository\ContactRepository.cs" />
+    <Compile Include="Repository\ContentRepositoryBase.cs" />
+    <Compile Include="Repository\EntityRepositoryBase.cs" />
+    <Compile Include="Repository\ImageRepository.cs" />
+    <Compile Include="Repository\EventRepository.cs" />
+    <Compile Include="Repository\OptionRepository.cs" />
+    <Compile Include="Repository\PageRepository.cs" />
+    <Compile Include="Repository\PostRepository.cs" />
+    <Compile Include="Repository\RatingRepository.cs" />
+    <Compile Include="Repository\TagRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CmsFramework\Dmc.Core\Dmc.Core.csproj">
+      <Project>{528ee90e-91ee-48ce-aee0-93f414c9da63}</Project>
+      <Name>Dmc.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CmsFramework\Dmc.Identity.Ef\Dmc.Identity.Ef.csproj">
+      <Project>{f9616f0c-da3f-4c8f-ade5-0aec7ef0185f}</Project>
+      <Name>Dmc.Identity.Ef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CmsFramework\Dmc.Identity\Dmc.Identity.csproj">
+      <Project>{b24c49fb-03e2-4535-95fb-89a73201b76e}</Project>
+      <Name>Dmc.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CmsFramework\Dmc.Repository.Ef\Dmc.Repository.Ef.csproj">
+      <Project>{3d5b5879-479d-4037-ba5e-59abca3ae8ef}</Project>
+      <Name>Dmc.Repository.Ef</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CmsFramework\Dmc.Repository\Dmc.Repository.csproj">
+      <Project>{e27c2ff0-b3b5-444f-bce2-346afc137323}</Project>
+      <Name>Dmc.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dmc.Cms.Core\Dmc.Cms.Core.csproj">
+      <Project>{b204707f-7802-4241-b768-fdb4fc8717a6}</Project>
+      <Name>Dmc.Cms.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dmc.Cms.Model\Dmc.Cms.Model.csproj">
+      <Project>{61bb51c1-23a9-4b29-994b-37021295b663}</Project>
+      <Name>Dmc.Cms.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dmc.Cms.Repository\Dmc.Cms.Repository.csproj">
+      <Project>{4373a932-38b8-42ec-9cbc-8822998c8100}</Project>
+      <Name>Dmc.Cms.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201911170238149_Initial.resx">
+      <DependentUpon>201911170238149_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrations\Scripts\Initial.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,44 @@
+﻿@model Dmc.Cms.Web.ViewModels.AccountDetailsViewModel
+@if (Model.FavouritePosts != null && Model.FavouritePosts.Count > 0)
+{
+    <div class="row topmargin-sm clearfix" id="account_favourite_posts_container">
+        @foreach (var item in Model.FavouritePosts)
+        {
+            string linkToPost = Url.Action("details", "default", new { slug = item.Slug });
+
+            <div class="col-xs-12 bottommargin-sm singleFavouritePost" id="account-post-@item.Id">
+                <div class="ipost clearfix">
+                    <div class="row clearfix">
+                        @if (item.PreviewImage != null)
+                        {
+                            <div class="col-sm-4">
+                                <div class="entry-image">
+                                    <a href="@linkToPost"><img class="image_fade" src="@Url.Content(item.PreviewImage.LargeImage)" alt="@item.PreviewImage.AltText"></a>
+                                </div>
+                            </div>
+                        }
+                        <div class="col-sm-8">
+                            <div class="entry-title">
+                                <h3><a href="@linkToPost">@item.Title</a></h3>
+                            </div>
+                            <ul class="entry-meta clearfix">
+                                @if (item.Published.HasValue)
+                                {
+                                    <li><i class="icon-calendar3"></i> @item.Published.Value.ToString("dd. MMMM, yyyy.")</li>
+                                }
+                                <li><a data-id="@item.Id" data-action="favorite" class="doFavourite @(item.IsFavourite ? "active" : string.Empty)" href="#" data-remove-url="@Url.Action("RemoveFromFavourites", "service", new { id = item.Id })" data-add-url="@Url.Action("AddToFavourites", "service", new { id = item.Id })"><i class="icon-remove"></i> Remove from Favourites</a></li>
+                            </ul>
+                            <div class="entry-content">
+                                @(new HtmlString(item.Description))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <p>You do not currently have any Favourite Posts.</p>
+}

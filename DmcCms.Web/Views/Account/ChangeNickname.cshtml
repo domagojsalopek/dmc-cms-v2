@@ -1,0 +1,60 @@
+﻿@model Dmc.Cms.Web.ViewModels.ChangeNicknameViewModel
+@{
+    ViewBag.Title = !string.IsNullOrWhiteSpace(Model.CurrentNickname) ? "Change Nickname" : "Create a Nickname";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+    <div class="postcontent nobottommargin clearfix">
+        <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+
+            <div class="acctitle"><i class="acc-closed icon-user-alt"></i><i class="acc-open icon-user"></i>@ViewBag.Title</div>
+            <div class="acc_content clearfix">
+
+                @using (Html.BeginForm("changenickname", "account", new { }, FormMethod.Post, new { @id = "login-form", @class = "nobottommargin", autocomplete = "off" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("Partials/_MessagesPartial")
+                    @Html.Partial("Partials/_HoneyPotPartial")
+
+                    <p>
+                        <em>Think of it as a display name. How do you wish to be addressed?</em>
+                    </p>
+
+                    <div class="col_full">
+                        @Html.LabelFor(o => o.Nickname)
+                        @Html.TextBoxFor(o => o.Nickname, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(o => o.Nickname, "", new { @class = "help-block text-danger formError" })
+                    </div>
+
+                    <div class="col_full">
+                        <button class="button button-3d button-black nomargin" name="change-nickname-form-submit" value="changenickname">Update</button>
+                    </div>
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+@section PageTitle
+{
+    <div class="clearfix"></div>
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>@ViewBag.Title</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Account")">Account</a></li>
+                <li class="breadcrumb-item active">@ViewBag.Title</li>
+            </ol>
+        </div>
+    </section>
+}
+
+@section scripts{
+    <script>
+        (function ($) {
+            $('#@Html.IdFor(o => Model.Nickname)').focus();
+        }(jQuery));
+    </script>
+}

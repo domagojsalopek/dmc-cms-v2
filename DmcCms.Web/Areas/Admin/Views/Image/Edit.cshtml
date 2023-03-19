@@ -1,0 +1,59 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminImageViewModel
+
+@{
+    ViewBag.Title = !Model.Id.HasValue ? "Create Image" : "Edit Image";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Name)
+        @Html.TextBoxFor(o => o.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.AltText)
+        @Html.TextAreaFor(o => o.AltText, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Caption)
+        @Html.TextAreaFor(o => o.Caption, new { @class = "form-control replaceEditor" })
+    </div>
+
+    if (Model.Id.HasValue && !string.IsNullOrWhiteSpace(Model.SmallImageUploadPath))
+    {
+        <div class="form-group">
+            <h3>Current small image</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.SmallImageUploadPath)" />
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.SmallImageUpload)
+        @Html.TextBoxFor(o => o.SmallImageUpload, new { @class = "form-control", type = "file" })
+    </div>
+
+    if (Model.Id.HasValue && !string.IsNullOrWhiteSpace(Model.LargeImageUploadPath))
+    {
+        <div class="form-group">
+            <h3>Current large image</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.LargeImageUploadPath)" />
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(o => o.LargeImageUpload)
+        @Html.TextBoxFor(o => o.LargeImageUpload, new { @class = "form-control", type ="file" })
+    </div>
+
+    if (Model.Id.HasValue)
+    {
+        @Html.HiddenFor(o => o.Id)
+    }
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

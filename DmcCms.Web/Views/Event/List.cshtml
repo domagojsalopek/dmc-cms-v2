@@ -1,0 +1,114 @@
+﻿@model EventListViewModel
+@{
+    var appConfig = Html.GetAppConfig();
+    DateTime nextDate = Model.DateRequested.AddDays(1);
+    DateTime prevDate = Model.DateRequested.AddDays(-1);
+    ViewBag.Title = string.Format("Events on {0:dd. MMMM}", Model.DateRequested);
+    var imageInfo = ImageInfoProvider.GetImageInfo(appConfig.SiteResources.DefaultOpenGraphImage);
+
+    string currentPageUrl = Url.AbsoluteAction("list", "event", new { day = Model.DateRequested.Day.ToString().PadLeft(2, '0'), month = Model.DateRequested.Month.ToString().PadLeft(2, '0') });
+    string previousPage = Url.Action("list", "event", new
+    {
+        day = prevDate.Day.ToString().PadLeft(2, '0'),
+        month = prevDate.Month.ToString().PadLeft(2, '0'),
+    });
+
+    string nextPage = Url.Action("list", "event", new
+    {
+        day = nextDate.Day.ToString().PadLeft(2, '0'),
+        month = nextDate.Month.ToString().PadLeft(2, '0'),
+    });
+}
+
+@section PageTitle
+{
+    <section id="page-title" class="page-title-parallax page-title-dark" style="background-image: url('@(Url.Content(appConfig.SiteResources.DefaultSiteHeader ?? "~/resources/custom/site-header.jpg"))');" data-stellar-background-ratio="0.1">
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">&#35;OnThisDay: @string.Format("{0:dd. MMMM}", Model.DateRequested)</h1>
+            <span data-animate="fadeInUp" data-delay="400">Important Events from Science, Space and Philosophy</span>
+        </div>
+    </section>
+}
+
+<div class="postcontent nobottommargin">
+
+    <div id="posts" class="events small-thumbs">
+        @if (Model.Events.Count > 0)
+        {
+            foreach (var item in Model.Events)
+            {
+                string linkToPost = Url.Action("details", "event", new { month = item.EventDate.Month.ToString().PadLeft(2, '0'), day = item.EventDate.Day.ToString().PadLeft(2, '0'), slug = item.Slug });
+
+                <div class="entry clearfix">
+                    @if (item.Image != null)
+                    {
+                        <div class="entry-image">
+                            <a href="@linkToPost"><img class="image_fade" src="@Url.Content(item.Image.SmallImage)" alt="@item.Image.AltText"></a>
+                            <div class="entry-date">@item.EventDate.Day.ToString()<span>@item.EventDate.ToString("MMMM")</span></div>
+                        </div>
+                    }
+                    <div class="entry-c">
+                        <div class="entry-title">
+                            <h2><a href="@linkToPost">@item.Title</a></h2>
+                        </div>
+                        <ul class="entry-meta clearfix">
+                            <li><span class="badge badge-warning">@item.EventType.ToString()</span></li>
+                            <li><i class="icon-time"></i>@item.EventDate.ToString("dd. MMMM, yyyy.")</li>
+                        </ul>
+                        <div class="entry-content">
+                            <p>@(new HtmlString(item.Description))</p>
+                            <a href="@linkToPost" class="btn btn-danger">Read More</a>
+                        </div>
+                    </div>
+                    <div class="clear">&nbsp;</div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="entry clearfix">
+                <div class="entry-title">
+                    <h2>Nothing here.</h2>
+                </div>
+                <div class="entry-c">
+                    <p>
+                        Ooops. Sorry about that.
+                    </p>
+                    <p>
+                        Nothing important happened on <strong>@Model.DateRequested.ToString("dd. MMMM")</strong> in Space, Science, Philosophy or Art.
+                    </p>
+                    <p>
+                        It is also possible that admin has been lazy and did not enter events yet :-)
+                    </p>
+                </div>
+            </div>
+        }
+
+    </div>
+    <div class="clear">&nbsp;</div>
+    <div class="row mb-3">
+        <div class="col-12">
+            <a href="@previousPage" class="btn btn-outline-secondary float-left">&larr; @prevDate.ToString("dd. MMMM")</a>
+            <a href="@nextPage" class="btn btn-outline-dark float-right">@nextDate.ToString("dd. MMMM") &rarr;</a>
+        </div>
+    </div>
+</div>
+
+@section seo
+{
+    <link rel="canonical" href="@currentPageUrl" />
+    <link rel="prev" href="@Url.AbsoluteContent(previousPage)" />
+    <link rel="next" href="@Url.AbsoluteContent(nextPage)" />
+    @if (imageInfo != null)
+    {
+        <meta property="og:image:height" content="@imageInfo.Height">
+        <meta property="og:image:width" content="@imageInfo.Width">
+    }
+    <meta property="og:description" content="@ViewBag.Title">
+    <meta name="description" content="@ViewBag.Title" />
+    <meta property="og:title" content="@appConfig.SiteSettings.Name">
+    <meta property="og:image" content="@(Url.AbsoluteContent(appConfig.SiteResources.DefaultOpenGraphImage))">
+    <meta property="og:site_name" content="@appConfig.SiteSettings.Name" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@currentPageUrl" />
+}

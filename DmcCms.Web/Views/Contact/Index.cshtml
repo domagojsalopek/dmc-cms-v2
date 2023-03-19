@@ -1,0 +1,67 @@
+﻿@model Dmc.Cms.Web.ViewModels.ContactQueryViewModel
+
+@{
+    var config = Html.GetAppConfig();
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_ContactLayout.cshtml";
+}
+
+<h3>Send us an Email</h3>
+<p>Your e-mail is required so we can reply to your query. You will not be spammed.</p>
+
+<div>
+    <div class="contact-form-result"></div>
+    @using (Html.BeginForm("Index", "Contact", new { }, FormMethod.Post, new { @id = "template-contactform", @class = "nobottommargin" }))
+    {
+        <div class="form-process"></div>
+
+        @Html.AntiForgeryToken()
+        @Html.Partial("Partials/_MessagesPartial")
+        @Html.Partial("Partials/_HoneyPotPartial")
+
+        <div class="col_half">
+            <label for="@Html.IdFor(o => o.Name)">@Html.DisplayNameFor(o => o.Name) <small>*</small></label>
+            @Html.TextBoxFor(o => o.Name, new { @class = "sm-form-control required" })
+            @Html.ValidationMessageFor(o => o.Name, "", new { @class = "help-block text-danger formError" })
+        </div>
+
+        <div class="col_half col_last">
+            <label for="@Html.IdFor(o => o.Email)">@Html.DisplayNameFor(o => o.Email) <small>*</small></label>
+            @Html.TextBoxFor(o => o.Email, new { @class = "sm-form-control required" })
+            @Html.ValidationMessageFor(o => o.Email, "", new { @class = "help-block text-danger formError" })
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="col_full">
+            <label for="@Html.IdFor(o => o.Subject)">@Html.DisplayNameFor(o => o.Subject) <small>*</small></label>
+            @Html.TextBoxFor(o => o.Subject, new { @class = "sm-form-control required" })
+            @Html.ValidationMessageFor(o => o.Subject, "", new { @class = "help-block text-danger formError" })
+        </div>
+
+        <div class="clear"></div>
+
+        <div class="col_full">
+            <label for="@Html.IdFor(o => o.Message)">@Html.DisplayNameFor(o => o.Message) <small>*</small></label>
+            @Html.TextAreaFor(o => o.Message, new { @class = "required sm-form-control", rows = "6", cols = "30" })
+        </div>
+
+        <div class="col_full">
+            <button class="button button-3d nomargin button-white button-light captchaEnabledButton" type="submit" id="template-contactform-submit" name="template-contactform-submit" value="submit">Send Message</button>
+        </div>
+    }
+</div>
+
+@section PageTitle
+{
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>Contact Us</h1>
+            <span>Get in Touch with Us</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active">Contact</li>
+            </ol>
+        </div>
+    </section>
+}

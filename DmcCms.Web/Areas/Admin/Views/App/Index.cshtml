@@ -1,0 +1,42 @@
+﻿@model EntityList
+@{
+    var viewModel = new AdminAppViewModel();
+    var results = new EntityList<AdminAppViewModel>(Model);
+    ViewBag.Title = "Apps";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New »", "Create", "App", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Name)
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in results.Results)
+    {
+        <tr id="item-@item.Id">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <p>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id, controller = "app", area = "admin" }, new { @class = "btn btn-primary" })
+                </p>
+            </td>
+            <td class="danger">
+                @*<p>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, controller = "category", area = "admin" }, new { @class = "btn btn-danger delete", @rel = item.Id })
+                </p>*@
+            </td>
+        </tr>
+    }
+
+</table>

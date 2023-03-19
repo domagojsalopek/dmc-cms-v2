@@ -1,0 +1,75 @@
+﻿@model Dmc.Cms.App.SiteSettings
+
+@{
+    ViewBag.Title = "Site Settings";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Name)
+        @Html.TextBoxFor(o => o.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Description)
+        @Html.TextBoxFor(o => o.Description, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.MainContactEmail)
+        @Html.TextBoxFor(o => o.MainContactEmail, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.IsAnalyticsEnabled)
+        @Html.CheckBoxFor(o => o.IsAnalyticsEnabled)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.AnalyticsCode)
+        @Html.TextAreaFor(o => o.AnalyticsCode, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.IsCustomCookieSolutionEnabled)
+        @Html.CheckBoxFor(o => o.IsCustomCookieSolutionEnabled)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.CustomCookieSolutionCode)
+        @Html.TextAreaFor(o => o.CustomCookieSolutionCode, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.AdditionalCustomHeadContent)
+        @Html.TextAreaFor(o => o.AdditionalCustomHeadContent, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.CustomCookieAndPrivacyPolicyLinks)
+        @Html.TextAreaFor(o => o.CustomCookieAndPrivacyPolicyLinks, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.PostsPerPage)
+        @Html.TextBoxFor(o => o.PostsPerPage, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.LatestUserFavouritePosts)
+        @Html.TextBoxFor(o => o.LatestUserFavouritePosts, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.NumberOfRecentPostsToShow)
+        @Html.TextBoxFor(o => o.NumberOfRecentPostsToShow, new { @class = "form-control" })
+    </div>
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

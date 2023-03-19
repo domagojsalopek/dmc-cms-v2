@@ -1,0 +1,67 @@
+﻿@model TagViewModel
+@{
+    var appConfig = Html.GetAppConfig();
+    ViewBag.Title = string.Format("Posts tagged {0}", Model.Title, appConfig.SiteSettings.Name);
+    var imageInfo = ImageInfoProvider.GetImageInfo(appConfig.SiteResources.DefaultOpenGraphImage);
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div id="posts">
+        @foreach (var item in Model.Posts.Results)
+        {
+            Html.RenderPartial("Partials/_SinglePostInListPartial", item);
+        }
+    </div>
+    @if (Model.Posts.TotalPages > 1)
+    {
+        <div class="row mb-3">
+            <div class="col-12">
+                @if (Model.Posts.HasPreviousPage)
+                {
+                    <a href="@Url.Action("PostsByTag", "default", new { tagName = Model.Slug, page = Model.Posts.PageIndex - 1 })" class="btn btn-outline-secondary float-left">&larr; Newer</a>
+                }
+                @if (Model.Posts.HasNextPage)
+                {
+                    <a href="@Url.Action("PostsByTag", "default", new { tagName = Model.Slug, page = Model.Posts.PageIndex + 1 })" class="btn btn-outline-dark float-right">Older &rarr;</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section PageTitle
+{
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>@Model.Title</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Content("~/")">Home</a></li>
+                <li class="breadcrumb-item active">@Model.Title</li>
+            </ol>
+        </div>
+    </section>
+}
+
+@section seo
+{
+    @if (Model.Posts.HasPreviousPage)
+    {
+        <link rel="prev" href="@Url.Action("PostsByTag", "default", new { tagName = Model.Slug, page = Model.Posts.PageIndex - 1 })" />
+    }
+    @if (Model.Posts.HasNextPage)
+    {
+        <link rel="next" href="@Url.Action("PostsByTag", "default", new { tagName = Model.Slug, page = Model.Posts.PageIndex + 1 })" />
+    }
+    @if (imageInfo != null)
+    {
+        <meta property="og:image:height" content="@imageInfo.Height">
+        <meta property="og:image:width" content="@imageInfo.Width">
+        <meta property="og:image" content="@(Url.AbsoluteContent(appConfig.SiteResources.DefaultOpenGraphImage))">
+    }
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:site_name" content="@appConfig.SiteSettings.Name" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@Url.AbsoluteAction("PostsByTag", "default", new { tagName = Model.Slug, page = Model.Posts.PageIndex })" />
+    <meta property="og:description" content="@ViewBag.Title" />
+    <meta name="description" content="@ViewBag.Title" />
+}

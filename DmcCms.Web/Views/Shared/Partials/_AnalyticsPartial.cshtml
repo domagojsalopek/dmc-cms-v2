@@ -1,0 +1,23 @@
+﻿@{
+    var config = Html.GetAppConfig();
+}
+@if (config.SiteSettings.IsAnalyticsEnabled && !Request.IsLocal)
+{
+    @Html.Raw(config.SiteSettings.AnalyticsCode)
+}
+@*
+    <script type="text/javascript">
+        var sc_project = 11982821;
+        var sc_invisible = 1;
+        var sc_security = "7a08bd62";
+        var sc_https = 1;
+        var sc_remove_link = 1;
+    </script>
+    <script type="text/javascript" src="https://www.statcounter.com/counter/counter.js" async></script>
+    <noscript>
+        <div class="statcounter">
+            <img class="statcounter" src="https://c.statcounter.com/11982821/0/7a08bd62/1/" alt="free web stats">
+        </div>
+    </noscript>
+    <!-- End of Statcounter Code -->
+*@

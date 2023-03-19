@@ -1,0 +1,64 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminPageViewModel
+
+@{
+    ViewBag.Title = Model.IsNewObject ? "Create Page" : "Edit Page";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.PreviewImageId)
+        @Html.DropDownListFor(o => o.PreviewImageId, Model.Images, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.DetailImageId)
+        @Html.DropDownListFor(o => o.DetailImageId, Model.Images, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Status)
+        @Html.EnumDropDownListFor(o => o.Status, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Title)
+        @Html.TextBoxFor(o => o.Title, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Description)
+        @Html.TextAreaFor(o => o.Description, new { @class = "form-control replaceEditor" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Content)
+        @Html.TextAreaFor(o => o.Content, new { @class = "form-control replaceEditor" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Order)
+        @Html.EditorFor(o => o.Order, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Slug)
+        @Html.TextBoxFor(o => o.Slug, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Published)
+        @Html.TextBoxFor(o => o.Published, new { @class = "form-control" })
+    </div>
+
+    if (!Model.IsNewObject)
+    {
+        @Html.HiddenFor(o => o.Id)
+    }
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

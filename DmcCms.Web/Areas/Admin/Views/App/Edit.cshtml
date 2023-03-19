@@ -1,0 +1,39 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminAppViewModel
+
+@{
+    ViewBag.Title = Model.IsNewObject ? "Create App" : "Edit App";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Name)
+        @Html.TextBoxFor(o => o.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Description)
+        @Html.TextAreaFor(o => o.Description, new { @class = "form-control" })
+    </div>
+
+    if (!Model.IsNewObject)
+    {
+        @Html.HiddenFor(o => o.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(o => o.ClientId)
+            @Html.TextBoxFor(o => o.ClientId, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(o => o.ClientSecret)
+            @Html.TextBoxFor(o => o.ClientSecret, new { @class = "form-control", @readonly = "readonly" })
+        </div>
+    }
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

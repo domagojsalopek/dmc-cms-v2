@@ -1,0 +1,81 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminPostViewModel
+
+@{
+    ViewBag.Title = Model.IsNewObject ? "Create Post" : "Edit Post";
+}
+
+@using (Html.BeginForm())
+{ 
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.SelectedCategories)
+        @Html.ListBoxFor(o => o.SelectedCategories, Model.Categories, new { @class = "form-control", multiple = "multiple" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.PreviewImageId)
+        @Html.DropDownList("PreviewImageId", Model.Images, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.DetailImageId)
+        @Html.DropDownList("DetailImageId", Model.Images, new { @class = "form-control" })
+    </div>
+
+    @*<div class="form-group">
+        @Html.LabelFor(o => o.Categories)
+        @Html.DropDownListFor(o => o.SelectedCategories, new MultiSelectList(Model.Categories, "Value", "Text", Model.SelectedCategories), new { @class = "form-control", multiple = "multiple" })
+    </div>*@
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Status)
+        @Html.EnumDropDownListFor(o => o.Status, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Title)
+        @Html.TextBoxFor(o => o.Title, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Description)
+        @Html.TextAreaFor(o => o.Description, new { @class = "form-control replaceEditor" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Content)
+        @Html.TextAreaFor(o => o.Content, new { @class = "form-control replaceEditor" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Slug)
+        @Html.TextBoxFor(o => o.Slug, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Published)
+        @Html.TextBoxFor(o => o.Published, new { @class = "form-control" })
+    </div>
+
+    foreach (var item in Model.Tags)
+    {
+        string selected = item.Selected ? "checked" : null;
+
+        <div class="checkbox">
+            <label>
+                @Html.HiddenFor(x => item.Value)
+                <input type="checkbox" name="@Html.IdFor(o => o.SelectedTags)" value="@item.Value" @selected /> @item.Text
+            </label>
+        </div>
+    }
+
+    if (!Model.IsNewObject)
+    {
+        @Html.HiddenFor(o => o.Id)
+    }
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

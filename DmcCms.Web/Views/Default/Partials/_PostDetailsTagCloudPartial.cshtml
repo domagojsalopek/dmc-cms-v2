@@ -1,0 +1,8 @@
+﻿@model Dmc.Cms.Web.ViewModels.PostViewModel
+<div class="tagcloud clearfix bottommargin">
+    @foreach (var item in Model.Tags)
+    {
+        <a href="@Url.Action("PostsByTag", "default", new { tagName = item.Slug })">@item.Name</a>
+    }
+</div>
+<div class="clear"></div>

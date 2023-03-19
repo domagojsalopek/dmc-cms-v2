@@ -1,0 +1,70 @@
+﻿@model Dmc.Cms.Web.ViewModels.PageViewModel
+@{
+    var appConfig = Html.GetAppConfig();
+    ViewBag.Title = Model.Title;
+    string fullUrl = Url.AbsoluteAction("details", "page", new { slug = Model.Slug });
+    string openGraphDescription = HttpUtility.HtmlEncode(Model.Description.StripTags().ShortenToClosestMeaningfulPart(200));
+    string socialTitle = HttpUtility.HtmlEncode(Model.Title.ShortenToClosestMeaningfulPart(100));
+    string openGraphImageLink = Model.DetailImage != null && !string.IsNullOrWhiteSpace(Model.DetailImage.LargeImage)
+        ? Url.AbsoluteContent(Model.DetailImage.LargeImage)
+        : Url.AbsoluteContent(appConfig.SiteResources.DefaultOpenGraphImage);
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="single-post nobottommargin">
+        <div class="entry clearfix">
+
+            <div class="entry-title">
+                <h2>@Model.Title</h2>
+            </div>
+
+            @if (Model.DetailImage != null)
+            {
+                <div class="entry-image">
+                    <a href="@Url.Content(Model.DetailImage.LargeImage)" data-lightbox="image"><img class="image_fade" src="@Url.Content(Model.DetailImage.SmallImage)" alt="@(string.IsNullOrEmpty(Model.DetailImage.AltText) ? Model.Title : Model.DetailImage.AltText)"></a>
+                </div>
+            }
+
+            <div class="entry-content notopmargin">
+
+                @(new HtmlString(Model.Content))
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section PageTitle
+{
+    <div class="clearfix"></div>
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>@Model.Title</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Content("~/")">Home</a></li>
+                <li class="breadcrumb-item active">@Model.Title</li>
+            </ol>
+        </div>
+    </section>
+}
+
+@section seo
+{
+    <link rel="canonical" href="@fullUrl" />
+    <meta name="description" content="@openGraphDescription" />
+    <meta property="og:title" content="@socialTitle" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@fullUrl" />
+    <meta property="og:image" content="@openGraphImageLink" />
+    <meta property="og:site_name" content="@appConfig.SiteSettings.Name" />
+    <meta property="og:description" content="@openGraphDescription" />
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@string.Format("@{0}", appConfig.SocialLinks.Twitter)">
+    <meta name="twitter:title" content="@socialTitle">
+    <meta name="twitter:description" content="@openGraphDescription">
+    <meta name="twitter:creator" content="@string.Format("@{0}", appConfig.SocialLinks.Twitter)">
+    <meta name="twitter:image" content="@openGraphImageLink">
+    <meta name="twitter:domain" content="@Request.Url.Host">
+}

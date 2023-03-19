@@ -1,0 +1,34 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminCommentViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Author)
+        @Html.TextBoxFor(o => o.Author, new { @class = "form-control", @disabled = "disabled" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Text)
+        @Html.TextAreaFor(o => o.Text, new { @class = "form-control", @disabled = "disabled" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Approved)
+        @Html.CheckBoxFor(o => o.Approved)
+    </div>
+
+    if (!Model.IsNewObject)
+    {
+        @Html.HiddenFor(o => o.Id)
+    }
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

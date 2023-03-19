@@ -1,0 +1,91 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminSiteResourcesViewModel
+@{
+    ViewBag.Title = "Site Resources";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    if (!string.IsNullOrWhiteSpace(Model.Logo))
+    {
+        <div class="form-group">
+            <h3>Current Logoe</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.Logo)" />
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(o => o.LogoUpload)
+        @Html.TextBoxFor(o => o.LogoUpload, new { @class = "form-control", type = "file" })
+    </div>
+
+
+    if (!string.IsNullOrWhiteSpace(Model.RetinaLogo))
+    {
+        <div class="form-group">
+            <h3>RetinaLogo</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.RetinaLogo)" />
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(o => o.RetinaLogoUpload)
+        @Html.TextBoxFor(o => o.RetinaLogoUpload, new { @class = "form-control", type = "file" })
+    </div>
+
+
+    if (!string.IsNullOrWhiteSpace(Model.FooterLogo))
+    {
+        <div class="form-group">
+            <h3>FooterLogo</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.FooterLogo)" />
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(o => o.FooterLogoUpload)
+        @Html.TextBoxFor(o => o.FooterLogoUpload, new { @class = "form-control", type = "file" })
+    </div>
+
+
+    if (!string.IsNullOrWhiteSpace(Model.DefaultOpenGraphImage))
+    {
+        <div class="form-group">
+            <h3>DefaultOpenGraphImage</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.DefaultOpenGraphImage)" />
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(o => o.DefaultOpenGraphImageUpload)
+        @Html.TextBoxFor(o => o.DefaultOpenGraphImageUpload, new { @class = "form-control", type = "file" })
+    </div>
+
+
+    if (!string.IsNullOrWhiteSpace(Model.DefaultSiteHeader))
+    {
+        <div class="form-group">
+            <h3>DefaultSiteHeader</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.DefaultSiteHeader)" />
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(o => o.DefaultSiteHeaderUpload)
+        @Html.TextBoxFor(o => o.DefaultSiteHeaderUpload, new { @class = "form-control", type = "file" })
+    </div>
+
+
+    if (!string.IsNullOrWhiteSpace(Model.EmailHeader))
+    {
+        <div class="form-group">
+            <h3>EmailHeader</h3>
+            <img class="img-responsive" style="max-width:300px;" src="@Url.Content(Model.EmailHeader)" />
+        </div>
+    }
+    <div class="form-group">
+        @Html.LabelFor(o => o.EmailHeaderUpload)
+        @Html.TextBoxFor(o => o.EmailHeaderUpload, new { @class = "form-control", type = "file" })
+    </div>
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

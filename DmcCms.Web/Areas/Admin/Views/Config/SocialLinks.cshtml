@@ -1,0 +1,30 @@
+﻿@model Dmc.Cms.App.SocialLinks
+
+@{
+    ViewBag.Title = "Social Links";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Facebook)
+        @Html.TextBoxFor(o => o.Facebook, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Instagram)
+        @Html.TextBoxFor(o => o.Instagram, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Twitter)
+        @Html.TextBoxFor(o => o.Twitter, new { @class = "form-control" })
+    </div>
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

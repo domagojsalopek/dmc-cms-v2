@@ -1,0 +1,26 @@
+﻿@model PostViewModel
+@{
+    int categoryCounter = 0;
+    string liked = Model.HasRating && Model.Liked ? "active" : string.Empty;
+    string notLiked = Model.HasRating && !Model.Liked ? "active" : string.Empty;
+}
+<ul class="entry-meta clearfix">
+    @if (Model.Published.HasValue)
+    {
+        <li><i class="icon-calendar3"></i> @Model.Published.Value.ToString("dd. MMMM, yyyy.")</li>
+    }
+    @*<li><a href="#"><i class="icon-user"></i> admin</a></li>*@
+    <li>
+        <i class="icon-folder-open"></i>
+        
+        @foreach (var item in Model.Categories)
+        {
+            categoryCounter++;
+            <a href="@Url.Action("PostsByCategory", "default", new { categoryName = item.Slug })">@item.Name</a>@(categoryCounter < Model.Categories.Count ? ", " : string.Empty)
+        }
+    </li>
+    <li><a href="@(Url.Action("details", "default", new { slug = Model.Slug }))#comments"><i class="icon-comments"></i> @Model.NumberOfComments Comments</a></li>
+    <li><a data-id="@Model.Id" data-action="like" class="doRate like-@Model.Id @liked" href="#" data-url="@Url.Action("ratepost", "service", new { id = Model.Id, like = true })"><i class="icon-thumbs-up"></i> Like</a></li>
+    <li><a data-id="@Model.Id" data-action="dislike" class="doRate dislike-@Model.Id @notLiked" href="#" data-url="@Url.Action("ratepost", "service", new { id = Model.Id, like = false })"><i class="icon-thumbs-down"></i></a></li>
+    <li><a data-id="@Model.Id" data-action="favorite" class="doFavourite @(Model.IsFavourite ? "active" : string.Empty)" href="#" data-remove-url="@Url.Action("removefromfavourites", "service", new { id = Model.Id })" data-add-url="@Url.Action("addtofavourites", "service", new { id = Model.Id })"><i class="icon-star"></i> Favourite</a></li>
+</ul>

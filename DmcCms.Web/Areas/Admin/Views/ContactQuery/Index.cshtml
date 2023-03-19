@@ -1,0 +1,44 @@
+﻿@model EntityList
+@{
+    var viewModel = new AdminContactQueryViewModel();
+    var results = new EntityList<AdminContactQueryViewModel>(Model);
+    ViewBag.Title = "Contact Queries";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Subject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => viewModel.Message)
+        </th>
+    </tr>
+
+    @foreach (var item in results.Results)
+    {
+        <tr id="item-@item.Id">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Subject)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Message)
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,39 @@
+﻿@model List<EventViewModel>
+
+<h4>Events #OnThisDay<br />@DateTime.Today.ToString("dd. MMMM")</h4>
+
+@if (Model.Count > 0)
+{
+    <div id="oc-portfolio-sidebar" class="owl-carousel carousel-widget" data-items="@Model.Count" data-margin="10" data-loop="true" data-nav="false" data-autoplay="5000">
+        @foreach (var item in Model)
+        {
+            <div class="oc-item">
+                <div class="iportfolio">
+                    @if (item.Image != null)
+                    {
+                        <div class="portfolio-image">
+                            <a href="@Url.Action("details", "event", new { month = item.EventDate.Month.ToString().PadLeft(2, '0'), day = item.EventDate.Day.ToString().PadLeft(2, '0'), slug = item.Slug })">
+                                <img src="@Url.Content(item.Image.SmallImage)" alt="@item.Image.AltText">
+                            </a>
+                            <div class="portfolio-overlay">
+                                <a href="@Url.Content(item.Image.LargeImage)" class="center-icon" data-lightbox="image"><i class="icon-line-plus"></i></a>
+                            </div>
+                        </div>
+                    }
+                    <div class="portfolio-desc nobottompadding">
+                        <h3><a href="@Url.Action("details", "event", new { month = item.EventDate.Month.ToString().PadLeft(2, '0'), day = item.EventDate.Day.ToString().PadLeft(2, '0'), slug = item.Slug })">@item.Title</a></h3>
+                        <span>@(new HtmlString(item.Description))</span>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <a href="@Url.Action("list", "event", new { day = DateTime.Today.Day.ToString().PadLeft(2, '0'), month = DateTime.Today.Month.ToString().PadLeft(2, '0') })" class="button button-dark button-rounded"><i class="icon-calendar"></i>Events</a>
+}
+else
+{
+<div class="promo promo-border promo-mini">
+    <h5>There are no entries for today. <span>Be sure to come back tomorrow.</span></h5>
+    <a href="@Url.Action("list", "event", new { day = DateTime.Today.Day.ToString().PadLeft(2, '0'), month = DateTime.Today.Month.ToString().PadLeft(2, '0') })" class="button button-dark button-rounded"><i class="icon-calendar"></i>Events</a>
+</div>
+}

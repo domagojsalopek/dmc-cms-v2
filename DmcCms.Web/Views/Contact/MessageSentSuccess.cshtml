@@ -1,0 +1,39 @@
+﻿@model Dmc.Cms.Web.ViewModels.ContactQueryViewModel
+
+@{
+    ViewBag.Title = "Message Sent";
+    Layout = "~/Views/Shared/_ContactLayout.cshtml";
+    var appConfig = Html.GetAppConfig();
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+
+        <div class="acctitle"><i class="acc-open icon-email"></i>@ViewBag.Title</div>
+        <div class="acc_content clearfix">
+
+            <div class="alert style-msg successmsg">
+                <div class="sb-msg"><i class="icon-thumbs-up"></i><strong>Well done!</strong> Your message was sent successfully.</div>
+            </div>
+
+            <h4>What to do next?</h4>
+            <p>You can go to the <a href="@Url.Content("~/")">home page</a> or check out our <a href="https://www.facebook.com/@(appConfig.SocialLinks.Facebook)">Facebook page</a>.</p>
+
+        </div>
+
+    </div>
+</div>
+
+@section PageTitle
+{
+    <section id="page-title">
+    <div class="container clearfix">
+        <h1>Contact Us</h1>
+        <span>Thank you for reaching out!</span>
+        <ol class="breadcrumb">
+            <li><a href="@Url.Content("~/")">Home</a></li>
+            <li class="active">Contact</li>
+        </ol>
+    </div>
+</section>
+}

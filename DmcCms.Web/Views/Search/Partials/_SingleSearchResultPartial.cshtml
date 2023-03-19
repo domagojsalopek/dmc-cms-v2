@@ -1,0 +1,22 @@
+﻿@model Dmc.Cms.Web.ViewModels.SearchResultViewModel
+@{
+    string linkToPost = Url.Action("details", "default", new { slug = Model.Slug });
+    string Excerpt = string.IsNullOrWhiteSpace(Model.Excerpt) ? Model.FullTextExcerpt : Model.Excerpt;
+}
+<div class="entry clearfix">
+    @if (Model.PreviewImage != null)
+    {
+        <div class="entry-image">
+            <a href="@linkToPost"><img class="image_fade" src="@Url.Content(Model.PreviewImage.LargeImage)" alt="@Model.Title"></a>
+        </div>
+    }
+    <div class="entry-title">
+        <h2><a href="@linkToPost">@Model.Title</a></h2>
+    </div>
+    <div class="entry-content">
+
+        @(new HtmlString(Excerpt))
+
+        <a href="@linkToPost" class="more-link">Read More</a>
+    </div>
+</div>

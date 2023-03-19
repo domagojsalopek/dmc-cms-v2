@@ -1,0 +1,76 @@
+﻿@model Dmc.Cms.Web.ViewModels.EventViewModel
+@{
+    var appConfig = Html.GetAppConfig();
+    ViewBag.Title = Model.Title;
+    var detailImageInfo = Model.Image != null && !string.IsNullOrWhiteSpace(Model.Image.LargeImage)
+        ? ImageInfoProvider.GetImageInfo(Model.Image.LargeImage)
+        : ImageInfoProvider.GetImageInfo(appConfig.SiteResources.DefaultOpenGraphImage);
+    string fullUrl = Url.AbsoluteAction("details", "event", new { month = Model.EventDate.Month.ToString().PadLeft(2, '0'), day = Model.EventDate.Day.ToString().PadLeft(2, '0'), slug = Model.Slug });
+    string openGraphDescription = Model.Description.StripTags().ShortenToClosestMeaningfulPart(300);
+    string socialTitle = Model.Title.ShortenToClosestMeaningfulPart(100);
+    string openGraphImageLink = Model.Image != null && !string.IsNullOrWhiteSpace(Model.Image.LargeImage)
+        ? Url.AbsoluteContent(Model.Image.LargeImage)
+        : Url.AbsoluteContent(appConfig.SiteResources.DefaultOpenGraphImage);
+}
+
+@section PageTitle
+{
+    <div class="clearfix"></div>
+    <section id="page-title" class="page-title-right page-title-mini">
+        <div class="container clearfix">
+            <h1>@Model.Title</h1>
+            <div class="clear">&nbsp;</div>
+            <ol class="breadcrumb clearfix">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("list", "event", new { day = Model.EventDate.Day.ToString().PadLeft(2, '0'), month = Model.EventDate.Month.ToString().PadLeft(2, '0') })">Events on @Model.EventDate.ToString("dd. MMMM")</a></li>
+                <li class="breadcrumb-item active">@Model.Title</li>
+            </ol>
+        </div>
+    </section>
+}
+
+<div class="postcontent nobottommargin clearfix">
+    <div class="single-post nobottommargin">
+        <div class="entry clearfix">
+            <div class="entry-title">
+                <h2>@Model.Title</h2>
+            </div>
+            <ul class="entry-meta clearfix">
+                <li><i class="icon-calendar3"></i> @Model.EventDate.ToString("dd. MMMM yyyy")</li>
+            </ul>
+            @if (Model.Image != null)
+            {
+                <div class="entry-image">
+                    <a href="@Url.Content(Model.Image.LargeImage)" data-lightbox="image"><img class="image_fade" src="@Url.Content(Model.Image.SmallImage)" alt="@(string.IsNullOrEmpty(Model.Image.AltText) ? Model.Title : Model.Image.AltText)"></a>
+                </div>
+            }
+            <div class="entry-content notopmargin">
+                @(new HtmlString(Model.Content))
+            </div>
+        </div>
+    </div>
+</div>
+
+@section seo
+{
+    <link rel="canonical" href="@fullUrl" />
+    <meta name="description" content="@Html.Raw(openGraphDescription)" />
+    <meta property="og:title" content="@socialTitle" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@fullUrl" />
+    <meta property="og:site_name" content="@appConfig.SiteSettings.Name" />
+    <meta property="og:description" content="@Html.Raw(openGraphDescription)" />
+    @if (detailImageInfo != null)
+    {
+        <meta property="og:image" content="@openGraphImageLink" />
+        <meta property="og:image:height" content="@detailImageInfo.Height">
+        <meta property="og:image:width" content="@detailImageInfo.Width">
+    }
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@string.Format("@{0}", appConfig.SocialLinks.Twitter)">
+    <meta name="twitter:title" content="@socialTitle">
+    <meta name="twitter:description" content="@Html.Raw(openGraphDescription)">
+    <meta name="twitter:creator" content="@string.Format("@{0}", appConfig.SocialLinks.Twitter)">
+    <meta name="twitter:image" content="@openGraphImageLink">
+    <meta name="twitter:domain" content="@Request.Url.Host">
+}

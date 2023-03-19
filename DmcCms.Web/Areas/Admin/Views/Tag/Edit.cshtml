@@ -1,0 +1,34 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminTagViewModel
+
+@{
+    ViewBag.Title = Model.IsNewObject ? "Create Tag" : "Edit Tag";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Status)
+        @Html.EnumDropDownListFor(o => o.Status, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Title)
+        @Html.TextBoxFor(o => o.Title, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Slug)
+        @Html.TextBoxFor(o => o.Slug, new { @class = "form-control" })
+    </div>
+
+    if (!Model.IsNewObject)
+    {
+        @Html.HiddenFor(o => o.Id)
+    }
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

@@ -1,0 +1,116 @@
+﻿@model Dmc.Cms.Web.ViewModels.AccountDetailsViewModel
+
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<img id="ProfilePicture" src="~/resources/images/icons/avatar.jpg" class="fbProfilePicture alignleft img-circle img-thumbnail notopmargin nobottommargin" alt="Avatar" style="max-width: 84px;">
+<div class="heading-block noborder">
+    <h3>@Model.DisplayName</h3>
+    <span>Member since @Model.MemberSince.DateTime.ToLongDateString()</span>
+</div>
+
+<div class="clear"></div>
+
+<div class="row clearfix">
+
+    <div class="col-lg-12">
+
+        @Html.Partial("Partials/_MessagesPartial")
+
+        @if (!Model.EmailConfirmed)
+        {
+            <div id="EmailNotConfirmedNotification" class="style-msg infomsg">
+                <div class="sb-msg">
+                    Your e-mail address is not confirmed. Please follow the link we have sent you. If you did not receive a link,
+                    we can <strong><em><a id="ResendConfirmationEmail" href="#" data-url="@Url.Action("resendconfirmationemail", "account")">resend confirmation e-mail</a></em></strong>.
+                </div>
+            </div>
+            <div id="ResendConfirmationEmailSuccessNotification" class="style-msg successmsg" style="display:none;">
+                <div class="sb-msg">
+                    We have sent you a confirmation e-mail again. <strong><em>Please check your Spam folder</em></strong>.
+                </div>
+            </div>
+        }
+
+        @if (!Model.HasPassword)
+        {
+            <div class="style-msg infomsg">
+                <div class="sb-msg">
+                    You do not currently have a password. While you can always login using an external service,
+                    having a password makes it possible to <strong><em>login using your email/password</em></strong> as well.
+                    <strong><em><a href="@Url.Action("addpassword", "account")">Create a password</a></em></strong>.
+                </div>
+            </div>
+        }
+
+        @if (!Model.CommentsNameExists)
+        {
+            <p>
+                You do not have a <em>Nickname</em> and all your comments will appear as <strong><em>Anonymous</em></strong>.
+                <strong><em><a href="@Url.Action("changenickname", "account")">Create a Nickname</a></em></strong> to 
+                control how you appear in comment threads.
+            </p>
+            <p>
+                Nickname is used for display purposes only and <em>cannot be used to login</em>.
+            </p>
+        }
+        else
+        {
+            <p>
+                Hint: You will appear in comments as <strong><em>@Model.CommentsDisplayName</em></strong>. 
+                You can <a href="@Url.Action("changenickname", "account")">change your Nickname</a> to present yourself differently.
+            </p>
+        }
+
+        <div class="tabs tabs-alt clearfix" id="tabs-profile">
+            <ul class="tab-nav clearfix">
+                <li><a href="#tab-replies"><i class="icon-reply"></i> Comments and Replies</a></li>
+                <li><a href="#tab-posts"><i class="icon-star"></i> Favourites</a></li>
+                <li><a href="#tab-likesdislikes"><i class="icon-thumbs-up"></i> Likes and Dislikes</a></li>
+            </ul>
+            <div class="tab-container">
+                <div class="tab-content clearfix" id="tab-replies" data-getcomments="@Url.Action("usercomments", "comment")">
+                    @{Html.RenderPartial("Partials/_UserCommentsPartial", Model);}
+                </div>
+                <div class="tab-content clearfix" id="tab-posts">
+                    @{Html.RenderPartial("Partials/_UserFavouritePostsPartial", Model);}
+                </div>
+                <div class="tab-content clearfix" id="tab-likesdislikes">
+                    @{Html.RenderPartial("Partials/_UserLikesAndDislikesPartial", Model);}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section PageTitle
+{
+}
+
+@section scripts {
+    @if (!Model.EmailConfirmed)
+    {
+    <script type="text/javascript">
+        (function ($) {
+            $('#ResendConfirmationEmail').on('click', function (e) {
+                e.preventDefault();
+                var params = {};
+                window.dmc.ajax.doPost('@Url.Action("ResendConfirmationEmail", "Account")', window.dmc.util.AddAntiForgeryToken(params, window.dmc.ajax.AntiForgeryTokenFormId), function (data) {
+                    if (data.success) {
+                        toastr.success(data.message ? data.message : 'Confirmation email was sent. Please check your inbox.');
+                        $('#EmailNotConfirmedNotification').hide();
+                        $('#ResendConfirmationEmailSuccessNotification').show();
+                        return;
+                    }
+                    toastr.error(data.message ? data.message : "An error occured.");
+                    if (data.redirect) {
+                        setTimeout(() => window.location.replace(data.redirect), 3000);
+                    }
+                });
+            });
+        }(jQuery));
+    </script>
+    }
+}

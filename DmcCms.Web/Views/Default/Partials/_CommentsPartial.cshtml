@@ -1,0 +1,110 @@
+﻿@model Dmc.Cms.Web.ViewModels.AddCommentViewModel
+<div data-getComments="@Url.Action("latestcomments", "comment", new { id = Model.PostId })" id="comments" class="clearfix">
+    <h3 id="comments-title"><span data-bind="text: totalNumberOfComments"></span> Comments</h3>
+    <ol class="commentlist clearfix" data-bind="template: { name: 'commentTemplate', foreach: comments, afterRender: $root.renderedComments }, visible: comments().length > 0"></ol>
+    <div class="clear"></div>
+    <div id="addNewCommentContainer">
+        <div class="clearfix">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <div class="promo promo-border promo-mini">
+                    <h3>Logged in users can add comments.</h3>
+                    <a href="#modal-login" data-lightbox="inline" data-toggle="modal" data-target="modal-login" class="button button-large button-dark button-rounded"><i class="icon-lock"></i>Login</a>
+                </div>
+                <div class="line line-sm"></div>
+            }
+            <h3>Leave a <span>new Comment</span></h3>
+            @using (Html.BeginForm("addcomment", "comment", FormMethod.Post, new { @class = "clearfix", data_bind = "submit: $root.postComment" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Partial("Partials/_HoneyPotPartial")
+                @Html.HiddenFor(o => o.PostId)
+                @Html.ValidationMessageFor(o => o.PostId)
+                <div class="col_full">
+                    @Html.LabelFor(o => o.Comment)
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        // MEH
+                        @Html.TextAreaFor(o => o.Comment, new { cols = "58", rows = "7", @class = "sm-form-control", placeholder = "Please login to comment", @disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.TextAreaFor(o => o.Comment, new { cols = "58", rows = "7", @class = "sm-form-control", placeholder = "Write a new comment" })
+                    }
+                    @Html.ValidationMessageFor(o => o.Comment)
+                </div>
+                <div class="col_full nobottommargin">
+                    <button @(Html.Raw(User.Identity.IsAuthenticated ? "" : "disabled=\"disabled\"")) name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="btn button button-3d nomargin @(User.Identity.IsAuthenticated ? "" : " button-white button-light")">Submit Comment</button@(User.Identity.IsAuthenticated>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+<script type="text/html" id="replyTemplate">
+    <div id="respond" class="clearfix" data-bind="css: { reply: 'comment-' + id }">
+        <h4>Leave a <span>Reply</span></h4>
+        @using (Html.BeginForm("addcomment", "comment", FormMethod.Post, new { @class = "clearfix replyForm", data_bind = "submit: $root.postComment" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Partial("Partials/_HoneyPotPartial")
+            @Html.HiddenFor(o => o.PostId)
+            @Html.ValidationMessageFor(o => o.PostId)
+            @Html.HiddenFor(o => o.ReplyTo, new Dictionary<string, Object> { { "data-bind", "value: id" } })
+            <div class="col_full">
+                @Html.LabelFor(o => o.Comment)
+                @Html.TextAreaFor(o => o.Comment, new { cols = "58", rows = "7", @class = "sm-form-control", data_bind = "value: replyText", placeholder = "Write your reply" })
+                @Html.ValidationMessageFor(o => o.Comment)
+            </div>
+            <div class="col_full nobottommargin">
+                <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d nomargin">Submit Reply</button>
+            </div>
+        }
+    </div>
+</script>
+
+@*
+    <!-- ko if: website -->
+    <a data-bind="attr: { href: website }, text: author" rel="external nofollow" class="url"></a>
+    <!-- /ko -->
+*@
+
+
+<script id="commentTemplate" type="text/html">
+    <li data-bind="css: displayDepth, attr: { id: 'li-comment-' + id }" class="comment byuser comment-author-_smcl_admin odd alt">
+        <a data-bind="attr: { name: 'comment' + id }"></a>
+        <div data-bind="attr: { id: 'comment-' + id }" class="comment-wrap clearfix">
+            <div class="comment-meta" data-bind="css: { invisible: depth > 4 }">
+                <div class="comment-author vcard">
+                    <span class="comment-avatar clearfix">
+                        <img src="/resources/images/icons/avatar.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                    </span>
+                </div>
+            </div>
+            <div class="comment-content clearfix">
+                <!-- ko if: isDeleted -->
+                <div class="comment-author">
+                    <div>Comment deleted.</div>
+                </div>
+                <p style="font-size:14px;"><em>This comment was deleted by the author.</em></p>
+                <!-- /ko -->
+                <!-- ko ifnot: isDeleted -->
+                <div class="comment-author">
+                    <div data-bind="text: author"></div>
+                    <span class="utcdate" data-bind="text: date"></span>
+                </div>
+                <p class="commentBody" style="font-size:14px;" data-bind="html: commentText"></p>
+                <a class="comment-reply-link" href="#" data-bind="click: $root.addReply.bind($data, $data)"><i class="icon-reply"></i></a>
+                <!-- /ko -->
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!-- ko if: showChildren -->
+        <ul class="children" data-bind="css: { 'ml-0 pl-0': depth > 4 }, template: { name: 'commentTemplate', foreach: replies, afterRender: $root.renderedComments }"></ul>
+        <!-- /ko -->
+        <!-- ko if: replyRequested -->
+        <div data-bind="template: { name: 'replyTemplate', data: $data, afterRender: $root.renderedReplyForm }"></div>
+        <!-- /ko -->
+    </li>
+</script>

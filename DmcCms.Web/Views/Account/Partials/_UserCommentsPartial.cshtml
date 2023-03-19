@@ -1,0 +1,83 @@
+﻿@model Dmc.Cms.Web.ViewModels.AccountDetailsViewModel
+
+<div class="clear topmargin-sm"></div>
+<ol class="commentlist noborder nomargin nopadding clearfix" data-bind="foreach: comments, visible: comments().length > 0">
+    <li data-bind="attr: { id: 'li-comment-' + id }" class="comment byuser comment-author-_smcl_admin odd alt">
+        <!-- ko ifnot: isReply -->
+        <div data-bind="template: { name: 'singleCommentTemplate', data: $data, afterRender: $root.renderedComments }"></div>
+        <!-- /ko -->
+        <!-- ko if: isReply -->        
+        <h4><span>Comment</span>:</h4>
+        <div data-bind="template: { name: 'singleCommentTemplate', data: $data.parent, afterRender: $root.renderedComments }"></div>
+        <ul class="children">
+            <li data-bind="attr: { id: 'li-comment-' + id }" class="comment byuser comment-author-_smcl_admin odd alt depth-2">
+                <h4>Your <span>Reply</span>:</h4>
+                <div data-bind="template: { name: 'singleCommentTemplate', data: $data, afterRender: $root.renderedComments }"></div>
+            </li>
+        </ul>        
+        <!-- /ko -->
+        <div class="divider divider-rounded divider-right"><i class="icon-chat"></i></div>
+    </li>
+</ol>
+
+<script id="singleCommentTemplate" type="text/html">
+    <div data-bind="attr: { id: 'comment-' + id }" class="comment-wrap clearfix">
+        <div class="comment-meta">
+            <div class="comment-author vcard">
+                <span class="comment-avatar clearfix">
+                    <img src="/resources/images/icons/avatar.jpg" class="avatar avatar-40 photo" height="40" width="40" />
+                </span>
+            </div>
+        </div>
+        <div class="comment-content clearfix">
+            <!-- ko if: isDeleted -->
+                <div class="comment-author">
+                    <div>Comment deleted.</div>
+                </div>
+                <p style="font-size:14px;"><em>This comment was deleted by the author.</em></p>
+            <!-- /ko -->
+            <!-- ko ifnot: isDeleted -->
+                <div class="float-md-right">
+                    <a data-bind="attr: { href: linkToComment }" class="button button-3d button-mini button-rounded button-lime button-light"><i class="icon-link"></i> Go to</a>
+                    <!-- ko if: isOwn -->
+                    <a href="#" class="button button-3d button-mini button-rounded button-red" data-bind="click: $root.delete.bind($data, $data)"><i class="icon-trash"></i> Delete</a>
+                    <!-- /ko -->
+                </div>
+                <div class="comment-author">
+                    <div data-bind="text: author"></div>
+                    <span class="utcdate" data-bind="text: date"></span>
+                </div>
+                <p class="commentBody" style="font-size:14px;" data-bind="html: commentText"></p>
+            <!-- /ko -->
+            <!-- ko if: deleteRequested -->
+            <div data-bind="template: { name: 'deleteTemplate', data: $data }"></div>
+            <!-- /ko -->
+        </div>
+        <div class="clear"></div>
+    </div>    
+</script>
+
+<script id="deleteTemplate" type="text/html">
+    <div id="respond" class="clearfix" data-bind="css: { reply: 'comment-' + id }">
+        <h4>Delete <span>comment</span></h4>
+        @using (Html.BeginForm("delete", "comment", FormMethod.Post, new { @id = "delete_comment_form", @class = "clearfix replyForm", data_bind = "submit: $root.performDelete" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Partial("Partials/_HoneyPotPartial")
+            @Html.Hidden("id", "", new Dictionary<string, Object> { { "data-bind", "value: id" } })
+            <div class="col_full">
+                <p>
+                    This comment will be deleted. This action cannot be undone. Are you sure?
+                </p>
+            </div>            
+            <div class="col_full nobottommargin">
+                <button name="submit" type="submit" id="submit-button" tabindex="5" value="Submit" class="button button-3d button-red nomargin">Delete</button>
+                <a href="#" class="button button-3d button-blue nomargin" data-bind="click: $root.cancelDelete">Cancel</a>
+            </div>
+        }
+    </div>
+</script>
+
+<p data-bind="visible: comments().length === 0">
+    You haven't written any comments or replies yet.
+</p>

@@ -1,0 +1,13 @@
+﻿@{ 
+    var appConfig = Html.GetAppConfig();
+    string userName = appConfig.SocialLinks.Twitter;
+}
+<div class="widget clearfix">
+    <div class="cookiesDependent">
+        <a data-chrome="nofooter" data-tweet-limit="1" class="twitter-timeline" data-dnt="true" data-theme="light" data-link-color="#ff4e50" href="https://twitter.com/@(userName)">Tweets</a>
+    </div>
+    <div class="noCookiesEnabled">
+        <h4 class="highlight-me">Follow on Twitter</h4>
+        <a target="_blank" href="https://twitter.com/@(appConfig.SocialLinks.Twitter)"><img src="~/resources/custom/follow-on-twitter.png" alt="Follow &#64;IsItOkToThink on Twitter" /></a>
+    </div>
+</div>

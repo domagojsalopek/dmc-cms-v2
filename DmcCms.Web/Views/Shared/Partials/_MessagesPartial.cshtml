@@ -1,0 +1,66 @@
+﻿@{ 
+    List<AppMessage> viewDataMessages = ViewData[EnvironmentKeys.DataDictionaryMessagesKey] as List<AppMessage> ?? new List<AppMessage>();
+    List<AppMessage> tempDataMessages = TempData[EnvironmentKeys.DataDictionaryMessagesKey] as List<AppMessage> ?? new List<AppMessage>();
+
+    List<string> errorMessages = viewDataMessages
+        .Where(o => o.MessageType == MessageType.Error)
+        .Select(o => o.Message).ToList();
+    errorMessages.AddRange(tempDataMessages.Where(o => o.MessageType == MessageType.Error).Select(o => o.Message)); // won't do unions, counting on the fact that there are no duplicates
+
+    List<string> successMessages = viewDataMessages
+        .Where(o => o.MessageType == MessageType.Success)
+        .Select(o => o.Message).ToList();
+    successMessages.AddRange(tempDataMessages.Where(o => o.MessageType == MessageType.Success).Select(o => o.Message));
+
+    List<string> warningMessages = viewDataMessages
+        .Where(o => o.MessageType == MessageType.Warning)
+        .Select(o => o.Message).ToList();
+    warningMessages.AddRange(tempDataMessages.Where(o => o.MessageType == MessageType.Warning).Select(o => o.Message));
+
+    List<string> infoMessages = viewDataMessages
+        .Where(o => o.MessageType == MessageType.Info)
+        .Select(o => o.Message).ToList();
+    infoMessages.AddRange(tempDataMessages.Where(o => o.MessageType == MessageType.Info).Select(o => o.Message));
+}
+
+@if (errorMessages.Count > 0)
+{
+    <div class="style-msg errormsg">
+        @foreach (string message in errorMessages)
+        {
+            <div class="sb-msg">@message</div>
+        }
+    </div>
+}
+
+@if (warningMessages.Count > 0)
+{
+    <div class="style-msg alertmsg">
+        @foreach (string message in warningMessages)
+        {
+            <div class="sb-msg">@message</div>
+        }
+    </div>
+}
+
+@if (infoMessages.Count > 0)
+{
+    <div class="style-msg infomsg">
+        @foreach (string message in infoMessages)
+        {
+            <div class="sb-msg">@message</div>
+        }
+    </div>
+}
+
+@if (successMessages.Count > 0)
+{
+    <div class="style-msg successmsg">
+        @foreach (string message in successMessages)
+        {
+            <div class="sb-msg">@message</div>
+        }
+    </div>
+}
+
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })

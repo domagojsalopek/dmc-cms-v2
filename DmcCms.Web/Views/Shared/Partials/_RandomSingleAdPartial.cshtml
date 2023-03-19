@@ -1,0 +1,12 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdvertisementViewModel
+
+<h4>Advertisement</h4>
+@(new HtmlString(Model.Html))
+
+@*<div class="noCookiesWarning">
+    <h5>Cannot show ads because cookies are not enabled.</h5>
+</div>*@
+
+<div class="pleaseDontBlock  promo promo-border promo-mini" style="display:none;">
+    <h5>Please consider supporting us by <span>disabling your ad blocker</span>.</h5>
+</div>

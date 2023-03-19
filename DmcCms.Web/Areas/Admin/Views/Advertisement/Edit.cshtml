@@ -1,0 +1,54 @@
+﻿@model Dmc.Cms.Web.ViewModels.AdminAdvertisementViewModel
+
+@{
+    ViewBag.Title = Model.IsNewObject ? "Create Advertisement" : "Edit Advertisement";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("Partials/_ValidationPartial")
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.UniqueId)
+        @Html.DisplayFor(o => o.UniqueId, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Name)
+        @Html.TextBoxFor(o => o.Name, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Html)
+        @Html.TextAreaFor(o => o.Html, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.AdvertisementType)
+        @Html.EnumDropDownListFor(o => o.AdvertisementType, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.IsVisible)
+        @Html.CheckBoxFor(o => o.IsVisible, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.VisibleFrom)
+        @Html.TextBoxFor(o => o.VisibleFrom, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.VisibleTo)
+        @Html.TextBoxFor(o => o.VisibleTo, new { @class = "form-control" })
+    </div>
+
+    if (!Model.IsNewObject)
+    {
+        @Html.HiddenFor(o => o.Id)
+    }
+
+    <p>
+        <input type="submit" value="Save" class="btn btn-default" />
+    </p>
+}

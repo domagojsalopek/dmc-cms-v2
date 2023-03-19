@@ -1,0 +1,20 @@
+﻿@model PostViewModel
+@{ 
+    string linkToPost = Url.Action("details", "default", new { slug = Model.Slug });
+}
+<div class="entry clearfix">
+    @if (Model.PreviewImage != null)
+    {
+        <div class="entry-image">
+            <a href="@linkToPost"><img class="image_fade" src="@Url.Content(Model.PreviewImage.SmallImage)" alt="@Model.PreviewImage.AltText"></a>
+        </div>
+    }
+    <div class="entry-title">
+        <h2><a href="@linkToPost">@Model.Title</a></h2>
+    </div>
+    @{  Html.RenderPartial("Partials/_PostMetaPartial", Model); }
+    <div class="entry-content">        
+        @(new HtmlString(Model.Description))
+        <a href="@linkToPost" class="more-link">Read More</a>
+    </div>
+</div>
